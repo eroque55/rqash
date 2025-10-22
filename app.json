@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "RQash",
+    "slug": "rqash",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/expo/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "ios": {
+      "supportsTablet": false
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/expo/adaptive-icon.png",
+        "backgroundColor": "#4F46E5"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.eroque55.rqash"
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/expo/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/expo/splash-icon.png"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    }
+  }
+}
