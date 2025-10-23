@@ -1,18 +1,21 @@
 /* eslint-disable no-restricted-imports */
 import { Image as ExpoImage, ImageProps } from 'expo-image';
 import { PropsWithChildren, useState } from 'react';
-import { View } from 'react-native';
+import { View, ViewProps } from 'react-native';
+import Animated, { AnimatedProps } from 'react-native-reanimated';
 
 import Shimmer from '../Shimmer';
 
 type Props = {
   showShimmer?: boolean;
+  containerProps?: AnimatedProps<ViewProps>;
 } & ImageProps;
 
 const Image = ({
   children,
   style,
   showShimmer = false,
+  containerProps,
   className,
   ...props
 }: PropsWithChildren<Props>) => {
@@ -23,7 +26,11 @@ const Image = ({
   };
 
   return (
-    <View className={`overflow-hidden ${className}`} style={style}>
+    <Animated.View
+      className={`overflow-hidden ${className}`}
+      style={style}
+      {...containerProps}
+    >
       <ExpoImage style={{ flex: 1 }} onLoad={onLoad} {...props} />
 
       {isLoading && showShimmer && (
@@ -33,7 +40,7 @@ const Image = ({
       )}
 
       {children}
-    </View>
+    </Animated.View>
   );
 };
 

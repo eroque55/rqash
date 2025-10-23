@@ -68,8 +68,7 @@ export const AuthProvider = ({
       const data = await loginService(form);
 
       await setItemAsync('accessToken', data.jwt);
-
-      if (data.refreshToken && form?.requestRefresh) {
+      if (form.requestRefresh) {
         await setItemAsync('refreshToken', data.refreshToken);
       }
 
@@ -114,13 +113,6 @@ export const AuthProvider = ({
     }
 
     SplashScreen.hideAsync();
-
-    if (user) {
-      router.replace('/(main)/home');
-      return;
-    }
-
-    router.replace('/(auth)/login');
   }, [isAppReady, loading]);
 
   http.interceptors.response.use(

@@ -1,9 +1,14 @@
 import '@/global/global.css';
 
+import {
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_700Bold,
+  useFonts,
+} from '@expo-google-fonts/inter';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { setDefaultOptions } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -75,7 +80,11 @@ const ProtectedStack = () => {
 
 const RootLayout = () => {
   const isLoading = useUpdate();
-  const [fontsLoaded] = useFonts({});
+  const [fontsLoaded] = useFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_700Bold,
+  });
 
   const isAppReady = !isLoading && fontsLoaded;
 

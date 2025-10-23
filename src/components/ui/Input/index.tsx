@@ -11,6 +11,7 @@ import {
   TextInputProps,
   TextStyle,
   View,
+  ViewProps,
 } from 'react-native';
 import {
   TextInputMask,
@@ -18,6 +19,7 @@ import {
   TextInputMaskTypeProp,
 } from 'react-native-masked-text';
 import Animated, {
+  AnimatedProps,
   FadeIn,
   FadeOut,
   LinearTransition,
@@ -26,31 +28,29 @@ import Animated, {
 import { colors } from '@/global/colors';
 import { useTheme } from '@/hooks/common/useTheme';
 
-import Icon from '../Icon';
+import Icon, { IconProps } from '../Icon';
 import Pressable from '../Pressable';
 
 type Props<TFieldValues extends FieldValues> = {
   label?: string;
   isPassword?: boolean;
-  placeholder?: string;
+  icon?: IconProps;
   type?: TextInputMaskTypeProp;
   options?: TextInputMaskOptionProp;
-  isBlocked?: boolean;
-  minHeight?: number;
+  containerProps?: AnimatedProps<ViewProps>;
 } & TextInputProps &
   UseControllerProps<TFieldValues>;
 
 const Input = <TFieldValues extends FieldValues>({
   label,
   isPassword,
-  placeholder,
+  icon,
   type,
   options,
-  isBlocked,
+  containerProps,
   control,
   name,
   autoCapitalize = 'none',
-  minHeight,
   multiline,
   maxLength,
   ...props
@@ -62,7 +62,7 @@ const Input = <TFieldValues extends FieldValues>({
     if (maxLength) {
       return maxLength;
     }
-    if (multiline || minHeight) {
+    if (multiline) {
       return 250;
     }
     return 100;
@@ -78,72 +78,56 @@ const Input = <TFieldValues extends FieldValues>({
 
   const inputStyle: StyleProp<TextStyle> = {
     flexGrow: 1,
-    height: '100%',
-    minHeight: 44,
     padding: 8,
     fontSize: 18,
     lineHeight: 28,
     color: isDark ? colors.neutral[400] : colors.neutral[500],
-    paddingRight: isPassword || isBlocked ? 44 : undefined,
+    paddingRight: isPassword || icon ? 44 : undefined,
+    fontFamily: 'Inter_400Regular',
+  };
+
+  const commonProps: TextInputProps = {
+    autoCapitalize,
+    maxLength: length(),
+    multiline,
+    placeholderTextColor: isDark ? colors.neutral[600] : colors.neutral[400],
+    secureTextEntry: passwordHidden,
+    style: inputStyle,
+    textAlignVertical: 'top',
+    value: field.value,
+    onChangeText: field.onChange,
+    ...props,
   };
 
   return (
-    <Animated.View className="w-full gap-1" layout={LinearTransition}>
+    <Animated.View
+      className="w-full gap-1"
+      layout={LinearTransition}
+      {...containerProps}
+    >
       {label && (
-        <Text className="text-base text-neutral-600 dark:text-neutral-200">
+        <Text className="font-inter text-base text-neutral-600 dark:text-neutral-300">
           {label}
         </Text>
       )}
 
-      <View>
-        <View
-          className="w-full flex-row items-center rounded-lg border border-neutral-300 bg-white dark:border-neutral-600 dark:bg-neutral-800"
-          style={{ minHeight }}
-        >
+      <View className="w-full gap-1">
+        <View className="w-full flex-row items-center rounded-lg border border-neutral-300 bg-white dark:border-neutral-600 dark:bg-neutral-800">
           {type ? (
             <TextInputMask
               ref={field.ref}
-              autoCapitalize={autoCapitalize}
-              editable={!isBlocked}
-              maxLength={length()}
-              multiline={!!minHeight || multiline}
               options={options}
-              placeholder={placeholder}
-              placeholderTextColor={
-                isDark ? colors.neutral[600] : colors.neutral[400]
-              }
               refInput={field.ref}
-              secureTextEntry={passwordHidden}
-              style={inputStyle}
-              textAlignVertical="top"
               type={type}
-              value={field.value}
-              onChangeText={field.onChange}
-              {...props}
+              {...commonProps}
             />
           ) : (
-            <TextInput
-              ref={field.ref}
-              autoCapitalize={autoCapitalize}
-              editable={!isBlocked}
-              maxLength={length()}
-              multiline={!!minHeight || multiline}
-              placeholder={placeholder}
-              placeholderTextColor={
-                isDark ? colors.neutral[600] : colors.neutral[400]
-              }
-              secureTextEntry={passwordHidden}
-              style={inputStyle}
-              textAlignVertical="top"
-              value={field.value}
-              onChangeText={field.onChange}
-              {...props}
-            />
+            <TextInput ref={field.ref} {...commonProps} />
           )}
 
-          {isBlocked && (
+          {icon && (
             <View className="absolute right-3 h-6 w-6 items-center justify-center self-center">
-              <Icon color={colors.neutral[500]} name="PadlockIcon" />
+              <Icon {...icon} />
             </View>
           )}
 

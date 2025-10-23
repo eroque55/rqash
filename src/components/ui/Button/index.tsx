@@ -9,7 +9,6 @@ import { AnimatedProps, LinearTransition } from 'react-native-reanimated';
 
 import { colors } from '@/global/colors';
 import { useDisableDelay } from '@/hooks/common';
-import { useTheme } from '@/hooks/common/useTheme';
 
 import Icon, { IconProps } from '../Icon';
 import { AnimatedPressable } from '../Pressable';
@@ -38,7 +37,6 @@ const Button = ({
   leftIcon,
   ...props
 }: PropsWithChildren<Props>) => {
-  const { isDark } = useTheme();
   const { executeWithDelay, isLoading: loading } = useDisableDelay();
 
   const handleColor = () => {
@@ -54,7 +52,7 @@ const Button = ({
       return color;
     }
 
-    return isDark ? colors.neutral[900] : colors.neutral[100];
+    return colors.neutral[100];
   };
 
   const handlePress = async (e: GestureResponderEvent) => {
@@ -87,7 +85,7 @@ const Button = ({
       )}
 
       <Text
-        className="text-lg"
+        className="font-inter_medium text-lg"
         style={{
           color: handleTextColor(),
         }}
