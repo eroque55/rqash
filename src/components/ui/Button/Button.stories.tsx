@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-native';
 import { fn } from 'storybook/test';
 
 import { colors } from '@/global/colors';
+import { iconsSelect } from '@/utils/tests';
 
 import { default as Button } from './index';
 
@@ -21,5 +22,9 @@ export const Default: Story = {
     isLoading: false,
     onPress: fn(),
     withoutDelay: false,
+    leftIcon: undefined,
+  },
+  argTypes: {
+    leftIcon: iconsSelect,
   },
 };

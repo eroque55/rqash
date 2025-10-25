@@ -58,6 +58,7 @@
     "@react-native-community/slider": "5.1.0",
     "@storybook/addon-ondevice-actions": "9.1.4",
     "@storybook/addon-ondevice-controls": "9.1.4",
+    "@storybook/addon-ondevice-notes": "^9.1.4",
     "@storybook/react-native": "9.1.4",
     "@testing-library/react-native": "^13.3.3",
     "@types/jest": "29.5.14",

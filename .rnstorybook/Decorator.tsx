@@ -18,6 +18,7 @@ const Decorator = ({ children }: PropsWithChildren) => {
       {children}
 
       <Button
+        withoutDelay
         style={{ marginTop: 'auto' }}
         text="Toggle Theme"
         onPress={toggleTheme}

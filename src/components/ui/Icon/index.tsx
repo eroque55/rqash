@@ -3,10 +3,10 @@ import { ViewStyle } from 'react-native';
 import * as IconAssets from '@/assets/icons/index';
 import { colors } from '@/global/colors';
 
-export type IconT = keyof typeof IconAssets;
+export type TIcon = keyof typeof IconAssets;
 
 export type IconProps = {
-  name: IconT;
+  name: TIcon;
   size?: number;
   style?: ViewStyle;
   color?: string;

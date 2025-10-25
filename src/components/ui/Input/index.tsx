@@ -140,15 +140,17 @@ const Input = <TFieldValues extends FieldValues>({
 
           {leftIcon && (
             <Icon
-              {...leftIcon}
+              key={leftIcon.name}
               style={{ position: 'absolute', left: 12, alignSelf: 'center' }}
+              {...leftIcon}
             />
           )}
 
           {rightIcon && (
             <Icon
-              {...rightIcon}
+              key={rightIcon.name}
               style={{ position: 'absolute', right: 12, alignSelf: 'center' }}
+              {...rightIcon}
             />
           )}
 

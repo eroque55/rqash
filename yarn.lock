@@ -2310,6 +2310,13 @@
     react-native-modal-datetime-picker "^18.0.0"
     tinycolor2 "^1.4.1"
 
+"@storybook/addon-ondevice-notes@^9.1.4":
+  version "9.1.4"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-ondevice-notes/-/addon-ondevice-notes-9.1.4.tgz#747436db82ba6a8ba9a9713e93a90890caeb76ed"
+  integrity sha512-y/K+wOZsQNbKKtpdJk42AA5PcppgB3c2PTMXBu6wJD1W4gaUliw09wMMrLh9mrNPF9Tlo5hlplEGAGLms/nYJw==
+  dependencies:
+    "@storybook/react-native-theming" "^9.1.4"
+
 "@storybook/global@^5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@storybook/global/-/global-5.0.0.tgz#b793d34b94f572c1d7d9e0f44fac4e0dbc9572ed"
