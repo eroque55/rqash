@@ -5,7 +5,8 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "nativewind-env.d.ts"
+    "nativewind-env.d.ts",
+    ".rnstorybook/**/*"
   ],
   "exclude": ["node_modules"],
   "compilerOptions": {
@@ -13,7 +14,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@/assets/*": ["./assets/*"]
+      "@/assets/*": ["./assets/*"],
+      "@/storybook/*": ["./storybook/*"]
     },
     "plugins": [
       {

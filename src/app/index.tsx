@@ -25,7 +25,7 @@ const Root = () => {
 
   return (
     <View
-      className="flex-1 bg-primary-500"
+      className="flex-1 bg-primary"
       style={{ marginTop: -insets.top, paddingTop: insets.top }}
     >
       <Animated.View

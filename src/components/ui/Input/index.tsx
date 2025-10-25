@@ -34,7 +34,8 @@ import Pressable from '../Pressable';
 type Props<TFieldValues extends FieldValues> = {
   label?: string;
   isPassword?: boolean;
-  icon?: IconProps;
+  leftIcon?: IconProps;
+  rightIcon?: IconProps;
   type?: TextInputMaskTypeProp;
   options?: TextInputMaskOptionProp;
   containerProps?: AnimatedProps<ViewProps>;
@@ -44,7 +45,8 @@ type Props<TFieldValues extends FieldValues> = {
 const Input = <TFieldValues extends FieldValues>({
   label,
   isPassword,
-  icon,
+  leftIcon,
+  rightIcon,
   type,
   options,
   containerProps,
@@ -76,13 +78,24 @@ const Input = <TFieldValues extends FieldValues>({
     name,
   });
 
+  const handlePaddingRight = () => {
+    if (isPassword) {
+      return 48;
+    }
+
+    if (rightIcon) {
+      return 38;
+    }
+  };
+
   const inputStyle: StyleProp<TextStyle> = {
     flexGrow: 1,
-    padding: 8,
+    padding: 12,
     fontSize: 18,
     lineHeight: 28,
     color: isDark ? colors.neutral[400] : colors.neutral[500],
-    paddingRight: isPassword || icon ? 44 : undefined,
+    paddingRight: handlePaddingRight(),
+    paddingLeft: leftIcon ? 38 : undefined,
     fontFamily: 'Inter_400Regular',
   };
 
@@ -101,7 +114,7 @@ const Input = <TFieldValues extends FieldValues>({
 
   return (
     <Animated.View
-      className="w-full gap-1"
+      className="h-auto flex-grow gap-1"
       layout={LinearTransition}
       {...containerProps}
     >
@@ -112,7 +125,7 @@ const Input = <TFieldValues extends FieldValues>({
       )}
 
       <View className="w-full gap-1">
-        <View className="w-full flex-row items-center rounded-lg border border-neutral-300 bg-white dark:border-neutral-600 dark:bg-neutral-800">
+        <View className="w-full flex-row items-center rounded-full bg-white dark:bg-neutral-800">
           {type ? (
             <TextInputMask
               ref={field.ref}
@@ -125,24 +138,30 @@ const Input = <TFieldValues extends FieldValues>({
             <TextInput ref={field.ref} {...commonProps} />
           )}
 
-          {icon && (
-            <View className="absolute right-3 h-6 w-6 items-center justify-center self-center">
-              <Icon {...icon} />
-            </View>
+          {leftIcon && (
+            <Icon
+              {...leftIcon}
+              style={{ position: 'absolute', left: 12, alignSelf: 'center' }}
+            />
+          )}
+
+          {rightIcon && (
+            <Icon
+              {...rightIcon}
+              style={{ position: 'absolute', right: 12, alignSelf: 'center' }}
+            />
           )}
 
           {isPassword && (
             <Pressable
-              className="absolute right-2 items-center justify-center overflow-hidden rounded-full p-1"
+              className="absolute right-3 items-center justify-center overflow-hidden rounded-full p-1"
               onPress={() => {
                 setPasswordHidden(!passwordHidden);
               }}
             >
               <Icon
                 key={passwordHidden ? 'EyeOffIcon' : 'EyeIcon'}
-                color={
-                  passwordHidden ? colors.neutral[500] : colors.primary[500]
-                }
+                color={passwordHidden ? colors.neutral[400] : colors.primary}
                 name={passwordHidden ? 'EyeOffIcon' : 'EyeIcon'}
                 size={25}
               />

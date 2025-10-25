@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
+import { useRouter } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import Animated, { LinearTransition } from 'react-native-reanimated';
@@ -12,16 +12,18 @@ import { useTheme } from '@/hooks/common/useTheme';
 import { LoginForm, LoginSchema } from '@/validation/login.validation';
 
 const Login = () => {
-  const { login, logout } = useAuth();
+  const router = useRouter();
+  const { login } = useAuth();
   const { toggleTheme } = useTheme();
 
   const { control, handleSubmit } = useForm<LoginForm>({
     resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      identifier: '',
+      password: '',
+      requestRefresh: false,
+    },
   });
-
-  useEffect(() => {
-    logout();
-  }, []);
 
   return (
     <KeyboardAwareScrollView contentContainerClassName="flex-grow items-center justify-center gap-8 p-6">
@@ -31,7 +33,7 @@ const Login = () => {
         source={LoginImg}
       />
 
-      <View className="w-full gap-1">
+      <Animated.View className="w-full gap-1" layout={LinearTransition}>
         <Text className="font-inter_medium text-2xl text-neutral-800 dark:text-neutral-100">
           Bem vindo!
         </Text>
@@ -39,33 +41,32 @@ const Login = () => {
         <Text className="font-inter text-lg text-neutral-500 dark:text-neutral-400">
           Insira seus dados para continuar
         </Text>
-      </View>
+      </Animated.View>
 
-      <Input
-        control={control}
-        keyboardType="email-address"
-        label="E-mail"
-        name="identifier"
-        placeholder="E-mail"
-      />
-
-      <Animated.View
-        className="w-full items-start gap-3"
-        layout={LinearTransition}
-      >
+      <Animated.View className="w-full gap-5" layout={LinearTransition}>
         <Input
-          isPassword
           control={control}
-          label="Senha"
-          name="password"
-          placeholder="Senha"
+          keyboardType="email-address"
+          label="E-mail"
+          name="identifier"
+          placeholder="E-mail"
         />
 
-        <CheckboxField
-          control={control}
-          label="Manter-me conectado"
-          name="requestRefresh"
-        />
+        <View className="w-full items-start gap-3">
+          <Input
+            isPassword
+            control={control}
+            label="Senha"
+            name="password"
+            placeholder="Senha"
+          />
+
+          <CheckboxField
+            control={control}
+            label="Manter-me conectado"
+            name="requestRefresh"
+          />
+        </View>
       </Animated.View>
 
       <Button text="Entrar" onPress={handleSubmit(login)} />
@@ -75,6 +76,13 @@ const Login = () => {
         onPress={toggleTheme}
       >
         toggle theme
+      </Text>
+
+      <Text
+        className="absolute bottom-8 font-inter_medium text-xs text-neutral-600 dark:text-neutral-300"
+        onPress={() => router.push('/storybook')}
+      >
+        storybook
       </Text>
     </KeyboardAwareScrollView>
   );

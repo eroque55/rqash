@@ -3,10 +3,13 @@ const { defineConfig, globalIgnores } = require('eslint/config');
 const expoConfig = require('eslint-config-expo/flat');
 const eslintConfigPrettier = require('eslint-config-prettier/flat');
 const importPlugin = require('eslint-plugin-import');
+const pluginJest = require('eslint-plugin-jest');
 const preferArrowFunctions = require('eslint-plugin-prefer-arrow-functions');
 const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');
 const pluginReact = require('eslint-plugin-react');
 const pluginReactNative = require('eslint-plugin-react-native');
+const storybook = require('eslint-plugin-storybook');
+const testingLibrary = require('eslint-plugin-testing-library');
 
 module.exports = defineConfig([
   globalIgnores([
@@ -24,6 +27,9 @@ module.exports = defineConfig([
   importPlugin.flatConfigs.recommended,
   eslintPluginPrettierRecommended,
   eslintConfigPrettier,
+  storybook.configs['flat/recommended'],
+  testingLibrary.configs['flat/react'],
+  pluginJest.configs['flat/recommended'],
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     plugins: {
@@ -35,6 +41,7 @@ module.exports = defineConfig([
     languageOptions: {
       globals: {
         __DEV__: 'readonly',
+        ...pluginJest.environments.globals.globals,
       },
       parserOptions: {
         ecmaVersion: 'latest',
@@ -134,6 +141,13 @@ module.exports = defineConfig([
           singleReturnOnly: false,
         },
       ],
+
+      //jest
+      'jest/no-disabled-tests': 'warn',
+      'jest/no-focused-tests': 'error',
+      'jest/no-identical-title': 'error',
+      'jest/prefer-to-have-length': 'warn',
+      'jest/valid-expect': 'error',
 
       // import
       'import/namespace': 'off',

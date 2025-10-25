@@ -15,10 +15,19 @@ export type IconProps = {
   fill?: string;
 };
 
+/**
+ * Default:
+ * ```
+ * size: 20
+ * color: colors.primary
+ * strokeWidth: 2
+ * ```
+ */
+
 const Icon = ({
   name,
   size = 20,
-  color = colors.primary[100],
+  color = colors.primary,
   strokeWidth = 2,
   style,
   rotate = 0,

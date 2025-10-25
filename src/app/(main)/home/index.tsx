@@ -1,40 +1,57 @@
-import { useRouter } from 'expo-router';
-import { Text, View } from 'react-native';
+import { useForm } from 'react-hook-form';
+import { FlatList, ScrollView, Text, View } from 'react-native';
 
-import { BackButton, Button } from '@/components/ui';
+import { Icon, Input, Pressable } from '@/components/ui';
 import { useAuth } from '@/contexts/useAuth';
-import { useDefaultModal } from '@/store/defaultModalStore';
+import { colors } from '@/global/colors';
 
 const Home = () => {
-  const router = useRouter();
-  const { user, logout } = useAuth();
-  const { openModal } = useDefaultModal();
+  const { user } = useAuth();
 
-  const handlePress = () => {
-    openModal({
-      title: 'Sair?',
-      message: 'Tem certeza que deseja sair?',
-      cancelText: 'Cancelar',
-      confirmText: 'Sair',
-      onConfirm: async () => {
-        await logout();
-        router.replace('/(auth)/login');
-      },
-    });
-  };
+  const { control } = useForm<{ search: string }>({
+    defaultValues: { search: '' },
+  });
 
   return (
-    <View className="flex-1 items-center justify-center gap-20 p-4">
-      <BackButton />
+    <ScrollView
+      contentContainerClassName="px-6 py-10 gap-6"
+      showsVerticalScrollIndicator={false}
+    >
+      <View className="gap-1">
+        <Text className="font-inter_bold text-3xl text-primary">
+          Olá, {user!.name}
+        </Text>
 
-      <View className="w-full">
-        <Text className="text-base text-neutral-60">Bem Vindo</Text>
-
-        <Text className="text-lg text-neutral-100">{user?.name}</Text>
+        <Text className="font-inter text-xl text-neutral-500 dark:text-neutral-400">
+          Bem vindo ao RQash
+        </Text>
       </View>
 
-      <Button text="Sair" onPress={handlePress} />
-    </View>
+      <View className="w-full flex-row gap-2">
+        <Input
+          control={control}
+          leftIcon={{ name: 'MagnifyingGlassIcon' }}
+          name="search"
+          placeholder="Pesquisa"
+        />
+
+        <Pressable className="aspect-square items-center justify-center overflow-hidden rounded-full bg-primary">
+          <Icon color={colors.white} name="SliderIcon" />
+        </Pressable>
+      </View>
+
+      <FlatList
+        contentContainerClassName="gap-3"
+        data={[]}
+        ListHeaderComponent={
+          <Pressable className="items-center overflow-hidden rounded-lg bg-white p-3 dark:bg-neutral-800">
+            <Icon color={colors.neutral[500]} name="PlusCircleIcon" />
+          </Pressable>
+        }
+        renderItem={null}
+        scrollEnabled={false}
+      />
+    </ScrollView>
   );
 };
 

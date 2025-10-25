@@ -16,10 +16,10 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast, { ErrorToast, ToastConfig } from 'react-native-toast-message';
-import colors from 'tailwindcss/colors';
 
 import { DefaultModal } from '@/components/ui';
 import { AuthProvider, useAuth } from '@/contexts/useAuth';
+import { colors } from '@/global/colors';
 import { useDimensions, useUpdate } from '@/hooks/common';
 import { useTheme } from '@/hooks/common/useTheme';
 import { useDropdownRouteReset } from '@/store/dropdownStore';
@@ -59,7 +59,9 @@ const ProtectedStack = () => {
         animation: 'fade',
         headerShown: false,
         contentStyle: {
-          backgroundColor: isDark ? colors.neutral[900] : colors.neutral[100],
+          backgroundColor: isDark
+            ? colors.neutral[900]
+            : colors.lightBackground,
           paddingTop: insets.top,
           paddingBottom: insets.bottom,
           paddingLeft: insets.left,
@@ -73,6 +75,10 @@ const ProtectedStack = () => {
 
       <Stack.Protected guard={!!user}>
         <Stack.Screen name="(main)" />
+      </Stack.Protected>
+
+      <Stack.Protected guard={__DEV__}>
+        <Stack.Screen name="storybook" options={{ headerShown: false }} />
       </Stack.Protected>
     </Stack>
   );

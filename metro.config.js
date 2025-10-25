@@ -1,5 +1,6 @@
 const { getDefaultConfig } = require('expo/metro-config');
 const { withNativeWind } = require('nativewind/metro');
+const withStorybook = require('@storybook/react-native/metro/withStorybook');
 
 const config = getDefaultConfig(__dirname);
 
@@ -14,10 +15,11 @@ config.resolver = {
   ...resolver,
   assetExts: resolver.assetExts.filter(ext => ext !== 'svg'),
   sourceExts: [...resolver.sourceExts, 'svg'],
-  unstable_enablePackageExports: false,
 };
 
-module.exports = withNativeWind(config, {
-  input: './src/global/global.css',
-  inlineRem: 16,
-});
+module.exports = withStorybook(
+  withNativeWind(config, {
+    input: './src/global/global.css',
+    inlineRem: 16,
+  }),
+);

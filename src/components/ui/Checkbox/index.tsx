@@ -21,28 +21,20 @@ const Checkbox = ({ isSelected = false, disabled = false, onPress }: Props) => {
 
   return (
     <Pressable
-      className="aspect-square w-6 items-center justify-center overflow-hidden rounded-md border"
+      className="aspect-square w-6 items-center justify-center overflow-hidden rounded-md"
       disabled={disabled}
       style={
         isSelected
           ? {
               backgroundColor: colors.alert.success,
-              borderColor: colors.alert.success,
             }
           : {
               backgroundColor: isDark ? colors.neutral[800] : colors.white,
-              borderColor: isDark ? colors.neutral[600] : colors.neutral[300],
             }
       }
       onPress={handlePress}
     >
-      {isSelected && (
-        <Icon
-          color={isDark ? colors.neutral[900] : colors.neutral[100]}
-          name="CheckIcon"
-          size={16}
-        />
-      )}
+      {isSelected && <Icon color={colors.white} name="CheckIcon" size={16} />}
     </Pressable>
   );
 };

@@ -29,12 +29,13 @@ type Props = {
 const Button = ({
   text,
   wired = false,
-  color = colors.primary[500],
+  color = colors.primary,
   isLoading = false,
   onPress,
   withoutDelay = false,
   width = '100%',
   leftIcon,
+  style,
   ...props
 }: PropsWithChildren<Props>) => {
   const { executeWithDelay, isLoading: loading } = useDisableDelay();
@@ -72,11 +73,14 @@ const Button = ({
     <AnimatedPressable
       className="flex-row items-center justify-center gap-3 overflow-hidden rounded-full border-2 p-2"
       layout={LinearTransition}
-      style={{
-        backgroundColor: handleColor(),
-        borderColor: wired ? color : colors.transparent,
-        width,
-      }}
+      style={[
+        {
+          backgroundColor: handleColor(),
+          borderColor: wired ? color : colors.transparent,
+          width,
+        },
+        style,
+      ]}
       onPress={handlePress}
       {...props}
     >
