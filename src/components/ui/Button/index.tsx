@@ -37,7 +37,7 @@ const Button = ({
   leftIcon,
   style,
   ...props
-}: PropsWithChildren<Props>) => {
+}: Props) => {
   const { executeWithDelay, isLoading: loading } = useDisableDelay();
 
   const handleColor = () => {
@@ -97,7 +97,9 @@ const Button = ({
         {text}
       </Text>
 
-      {(isLoading || loading) && <ButtonActivityIndicator />}
+      {(isLoading || loading) && (
+        <ButtonActivityIndicator isLoading={isLoading || loading} />
+      )}
     </AnimatedPressable>
   );
 };
