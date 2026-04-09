@@ -17,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     text: 'Button',
-    color: colors.primary,
+    color: colors.primary[500],
     wired: false,
     isLoading: false,
     onPress: fn(),

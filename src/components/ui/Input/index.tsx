@@ -90,7 +90,8 @@ const Input = <TFieldValues extends FieldValues>({
 
   const inputStyle: StyleProp<TextStyle> = {
     flexGrow: 1,
-    padding: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
     fontSize: 16,
     lineHeight: 24,
     color: isDark ? colors.neutral[400] : colors.neutral[500],
@@ -119,7 +120,7 @@ const Input = <TFieldValues extends FieldValues>({
       {...containerProps}
     >
       {label && (
-        <Text className="font-inter text-neutral-600 dark:text-neutral-300">
+        <Text className="font-inter text-sm text-neutral-600 dark:text-neutral-300">
           {label}
         </Text>
       )}
@@ -163,7 +164,9 @@ const Input = <TFieldValues extends FieldValues>({
             >
               <Icon
                 key={passwordHidden ? 'EyeOffIcon' : 'EyeIcon'}
-                color={passwordHidden ? colors.neutral[400] : colors.primary}
+                color={
+                  passwordHidden ? colors.neutral[400] : colors.primary[500]
+                }
                 name={passwordHidden ? 'EyeOffIcon' : 'EyeIcon'}
                 size={25}
               />

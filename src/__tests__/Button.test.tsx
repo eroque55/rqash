@@ -55,7 +55,7 @@ describe('Button Component', () => {
       render(<Button testID="botao" text="Botão" />);
       const button = screen.getByTestId('botao');
       expect(button.props.style).toContainEqual(
-        expect.objectContaining({ backgroundColor: colors.primary }),
+        expect.objectContaining({ backgroundColor: colors.primary[500] }),
       );
     });
 

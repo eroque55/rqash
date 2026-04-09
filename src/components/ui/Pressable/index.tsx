@@ -9,11 +9,16 @@ import {
 import { KeyboardController } from 'react-native-keyboard-controller';
 import Animated from 'react-native-reanimated';
 
+type Props = {
+  withoutFeedback?: boolean;
+} & PressableProps;
+
 const Pressable = ({
+  withoutFeedback = false,
   children,
   onPress,
   ...props
-}: PropsWithChildren<PressableProps>) => {
+}: PropsWithChildren<Props>) => {
   const handlePress = (event: GestureResponderEvent) => {
     KeyboardController.dismiss();
 
@@ -28,7 +33,7 @@ const Pressable = ({
         <>
           {children}
 
-          {pressed && (
+          {pressed && !withoutFeedback && (
             <View className="absolute inset-0 bg-black/10 dark:bg-white/10" />
           )}
         </>

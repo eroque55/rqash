@@ -61,7 +61,7 @@ const DefaultModal = () => {
           <Text className="text-neutral-80 text-base">{modal.message}</Text>
 
           {modal.notice && (
-            <Text className="text-neutral-60">{modal.notice}</Text>
+            <Text className="text-neutral-60 text-sm">{modal.notice}</Text>
           )}
         </View>
 

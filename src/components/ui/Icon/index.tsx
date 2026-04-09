@@ -19,7 +19,7 @@ export type IconProps = {
  * Default:
  * ```
  * size: 20
- * color: colors.primary
+ * color: colors.primary[500]
  * strokeWidth: 2
  * ```
  */
@@ -27,7 +27,7 @@ export type IconProps = {
 const Icon = ({
   name,
   size = 20,
-  color = colors.primary,
+  color = colors.primary[500],
   strokeWidth = 2,
   style,
   rotate = 0,

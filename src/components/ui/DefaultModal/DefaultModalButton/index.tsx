@@ -22,9 +22,9 @@ const DefaultModalButton = ({ text, onPress }: Props) => {
       className="w-1/2 items-center justify-center overflow-hidden border-r border-neutral-200 p-3"
       onPress={handlePress}
     >
-      <Text className="text-base text-primary">{text}</Text>
+      <Text className="text-base text-primary-500">{text}</Text>
 
-      {isLoading && <ButtonActivityIndicator />}
+      <ButtonActivityIndicator isLoading={isLoading} />
     </Pressable>
   );
 };

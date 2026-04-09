@@ -29,7 +29,7 @@ type Props = {
 const Button = ({
   text,
   wired = false,
-  color = colors.primary,
+  color = colors.primary[500],
   isLoading = false,
   onPress,
   withoutDelay = false,
@@ -71,7 +71,7 @@ const Button = ({
 
   return (
     <AnimatedPressable
-      className="flex-row items-center justify-center gap-3 overflow-hidden rounded-full border-2 p-2"
+      className="flex-row items-center justify-center gap-3 overflow-hidden rounded-full border-2 p-4"
       layout={LinearTransition}
       style={[
         {
@@ -89,7 +89,7 @@ const Button = ({
       )}
 
       <Text
-        className="font-inter_medium text-lg"
+        className="font-inter_medium text-base"
         style={{
           color: handleTextColor(),
         }}

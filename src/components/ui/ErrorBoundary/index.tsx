@@ -10,7 +10,7 @@ const StackTrace = ({ error }: { error: Error }) => {
       className="my-2 border border-white/50"
       contentContainerClassName="p-3"
     >
-      <Text className="text-white">{error.stack}</Text>
+      <Text className="text-sm text-white">{error.stack}</Text>
     </ScrollView>
   );
 };
