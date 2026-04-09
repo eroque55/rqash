@@ -5,7 +5,7 @@ import { Text, View } from 'react-native';
 import Animated, { LinearTransition } from 'react-native-reanimated';
 
 import { LoginImg } from '@/assets/images';
-import { Button, Image, Input, KeyboardAwareScrollView } from '@/components/ui';
+import { Button, DefaultContainer, Image, Input } from '@/components/ui';
 import CheckboxField from '@/components/ui/CheckboxField';
 import { useAuth } from '@/contexts/useAuth';
 import { useTheme } from '@/hooks/common/useTheme';
@@ -26,7 +26,7 @@ const Login = () => {
   });
 
   return (
-    <KeyboardAwareScrollView contentContainerClassName="flex-grow items-center justify-center gap-8 p-6">
+    <DefaultContainer contentContainerClassName="flex-grow items-center justify-center gap-8 p-6">
       <Image
         className="aspect-square w-60"
         containerProps={{ layout: LinearTransition }}
@@ -84,7 +84,7 @@ const Login = () => {
       >
         storybook
       </Text>
-    </KeyboardAwareScrollView>
+    </DefaultContainer>
   );
 };
 

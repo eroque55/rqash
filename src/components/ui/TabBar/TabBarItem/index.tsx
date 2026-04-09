@@ -10,7 +10,7 @@ import Pressable from '../../Pressable';
 type Props = {
   icon: TIcon;
   label: string;
-  href: Href;
+  href?: Href;
 };
 
 const TabBarItem = ({ icon, label, href }: Props) => {
@@ -18,9 +18,12 @@ const TabBarItem = ({ icon, label, href }: Props) => {
   const pathname = usePathname();
   const { isDark } = useTheme();
 
-  const isSelected = String(href).includes(pathname);
+  const isSelected = href ? String(href).includes(pathname) : false;
 
   const handlePress = () => {
+    if (!href) {
+      return;
+    }
     router.push(href);
   };
 
@@ -34,9 +37,9 @@ const TabBarItem = ({ icon, label, href }: Props) => {
 
   return (
     <Pressable
-      disabled
       withoutFeedback
       className="flex-1 items-center gap-1.5"
+      disabled={isSelected || !href}
       hitSlop={4}
       onPress={handlePress}
     >

@@ -1,5 +1,6 @@
 export { default as BackButton } from './BackButton';
 export { default as Button } from './Button';
+export { default as DefaultContainer } from './DefaultContainer';
 export { default as DefaultModal } from './DefaultModal';
 export { default as EmptyComponent } from './EmptyComponent';
 export { default as Icon } from './Icon';
