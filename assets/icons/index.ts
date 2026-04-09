@@ -6,6 +6,7 @@ export { default as EyeOffIcon } from './EyeOff.svg';
 export { default as GridIcon } from './Grid.svg';
 export { default as HomeIcon } from './Home.svg';
 export { default as MagnifyingGlassIcon } from './MagnifyingGlass.svg';
+export { default as MoonIcon } from './Moon.svg';
 export { default as PadlockIcon } from './Padlock.svg';
 export { default as PlusIcon } from './Plus.svg';
 export { default as PlusCircleIcon } from './PlusCircle.svg';

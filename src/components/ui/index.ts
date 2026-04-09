@@ -10,4 +10,5 @@ export { default as KeyboardAwareScrollView } from './KeyboardAwareScrollView';
 export { default as ModalBackdrop } from './ModalBackdrop';
 export { default as Pressable } from './Pressable';
 export { default as Shimmer } from './Shimmer';
+export { default as Switch } from './Switch';
 export { default as TabBar } from './TabBar';

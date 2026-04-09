@@ -5,11 +5,16 @@ import { scheduleOnRN } from 'react-native-worklets';
 
 import { LogoImg } from '@/assets/images';
 import { Image } from '@/components/ui';
+import { useAuth } from '@/contexts/useAuth';
 import { useDimensions } from '@/hooks/common';
 
 const Root = () => {
   const router = useRouter();
   const { insets } = useDimensions();
+
+  const { logout } = useAuth();
+
+  logout();
 
   const handleRedirect = () => {
     setTimeout(() => {

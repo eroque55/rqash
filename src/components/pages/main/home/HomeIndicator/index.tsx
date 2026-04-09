@@ -13,7 +13,7 @@ const HomeIndicator = ({ title, value }: Props) => {
   return (
     <View className="flex-1 flex-row items-center gap-3 rounded-[20px] bg-primary-400 p-3">
       <View className="rounded-full bg-primary-300 p-3">
-        <Icon color={colors.white} name="ChevronIcon" />
+        <Icon color={colors.white} name="ChevronIcon" size={20} />
       </View>
 
       <View className="flex-1 gap-1">

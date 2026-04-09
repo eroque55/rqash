@@ -69,15 +69,15 @@ export const AuthProvider = ({
 
       storage.set('accessToken', data.jwt);
 
-      if (form.requestRefresh) {
-        storage.set('refreshToken', data.refreshToken);
-      }
+      // if (form.requestRefresh) {
+      //   storage.set('refreshToken', data.refreshToken);
+      // }
 
       await fetchUser();
 
       router.replace('/(main)/home');
     } catch (err) {
-      await logout();
+      logout();
       throw err;
     }
   };
@@ -94,7 +94,7 @@ export const AuthProvider = ({
 
         return data.jwt;
       } catch {
-        await logout();
+        logout();
       }
     }
   };
@@ -124,7 +124,7 @@ export const AuthProvider = ({
         return Promise.reject(new Error('Sem conexão com a internet!'));
       }
       if (error.code === 'ERR_SECURESTORE_ENCRYPT_FAILURE') {
-        await logout();
+        logout();
         return;
       }
       if (

@@ -8,13 +8,11 @@ import { LoginImg } from '@/assets/images';
 import { Button, DefaultContainer, Image, Input } from '@/components/ui';
 import CheckboxField from '@/components/ui/CheckboxField';
 import { useAuth } from '@/contexts/useAuth';
-import { useTheme } from '@/hooks/common/useTheme';
 import { LoginForm, LoginSchema } from '@/validation/login.validation';
 
 const Login = () => {
   const router = useRouter();
   const { login } = useAuth();
-  const { toggleTheme } = useTheme();
 
   const { control, handleSubmit } = useForm<LoginForm>({
     resolver: zodResolver(LoginSchema),
@@ -70,13 +68,6 @@ const Login = () => {
       </Animated.View>
 
       <Button text="Entrar" onPress={handleSubmit(login)} />
-
-      <Text
-        className="absolute bottom-4 font-inter_medium text-xs text-neutral-600 dark:text-neutral-300"
-        onPress={toggleTheme}
-      >
-        toggle theme
-      </Text>
 
       <Text
         className="absolute bottom-8 font-inter_medium text-xs text-neutral-600 dark:text-neutral-300"
