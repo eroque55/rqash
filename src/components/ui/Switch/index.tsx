@@ -8,6 +8,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { colors } from '@/global/colors';
+import { useTheme } from '@/hooks/common/useTheme';
 
 import { AnimatedPressable } from '../Pressable';
 
@@ -18,13 +19,18 @@ type Props = {
 };
 
 const Switch = ({ isActive = false, onChange, disabled }: Props) => {
+  const { isDark } = useTheme();
+
   const activeValue = useSharedValue(isActive ? 1 : 0);
+  const inactiveBackgroundColor = isDark
+    ? colors.neutral[600]
+    : colors.neutral[200];
 
   const containerStyle = useAnimatedStyle(() => {
     const backgroundColor = interpolateColor(
       activeValue.value,
       [0, 1],
-      [colors.neutral[200], colors.alert.success],
+      [inactiveBackgroundColor, colors.alert.success],
     );
 
     return {

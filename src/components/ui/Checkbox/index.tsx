@@ -1,8 +1,18 @@
+import { useEffect } from 'react';
+import Animated, {
+  FadeIn,
+  FadeOut,
+  interpolateColor,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
+
 import { colors } from '@/global/colors';
 import { useTheme } from '@/hooks/common/useTheme';
 
 import Icon from '../Icon';
-import Pressable from '../Pressable';
+import { AnimatedPressable } from '../Pressable';
 
 type Props = {
   isSelected?: boolean;
@@ -13,6 +23,25 @@ type Props = {
 const Checkbox = ({ isSelected = false, disabled = false, onPress }: Props) => {
   const { isDark } = useTheme();
 
+  const activeValue = useSharedValue(isSelected ? 1 : 0);
+  const inactiveBackgroundColor = isDark ? colors.neutral[600] : colors.white;
+
+  const containerStyle = useAnimatedStyle(() => {
+    const backgroundColor = interpolateColor(
+      activeValue.value,
+      [0, 1],
+      [inactiveBackgroundColor, colors.alert.success],
+    );
+
+    return {
+      backgroundColor,
+    };
+  });
+
+  useEffect(() => {
+    activeValue.value = withTiming(isSelected ? 1 : 0);
+  }, [isSelected]);
+
   const handlePress = () => {
     if (onPress) {
       onPress();
@@ -20,22 +49,18 @@ const Checkbox = ({ isSelected = false, disabled = false, onPress }: Props) => {
   };
 
   return (
-    <Pressable
+    <AnimatedPressable
       className="aspect-square w-6 items-center justify-center overflow-hidden rounded-md"
       disabled={disabled}
-      style={
-        isSelected
-          ? {
-              backgroundColor: colors.alert.success,
-            }
-          : {
-              backgroundColor: isDark ? colors.neutral[800] : colors.white,
-            }
-      }
+      style={containerStyle}
       onPress={handlePress}
     >
-      {isSelected && <Icon color={colors.white} name="CheckIcon" size={16} />}
-    </Pressable>
+      {isSelected && (
+        <Animated.View entering={FadeIn} exiting={FadeOut}>
+          <Icon color={colors.white} name="CheckIcon" size={16} />
+        </Animated.View>
+      )}
+    </AnimatedPressable>
   );
 };
 
