@@ -1,6 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
-import { deleteItemAsync, getItemAsync, setItemAsync } from 'expo-secure-store';
 import * as SplashScreen from 'expo-splash-screen';
 import {
   createContext,
@@ -17,11 +16,12 @@ import {
 } from '@/hooks/api/useAuthApi';
 import { http } from '@/services/http';
 import { TUser } from '@/types/user';
+import { storage } from '@/utils/storage';
 import { LoginForm } from '@/validation/login.validation';
 
 type ContextValues = {
   user: TUser | null;
-  logout: (isDelete?: boolean) => Promise<void>;
+  logout: (isDelete?: boolean) => void;
   login: (user: LoginForm) => Promise<void>;
   loading: boolean;
   fetchUser: () => Promise<void>;
@@ -56,10 +56,10 @@ export const AuthProvider = ({
     }
   };
 
-  const logout = async () => {
+  const logout = () => {
     setUser(null);
-    await deleteItemAsync('accessToken');
-    await deleteItemAsync('refreshToken');
+    storage.remove('accessToken');
+    storage.remove('refreshToken');
     queryClient.clear();
   };
 
@@ -67,9 +67,10 @@ export const AuthProvider = ({
     try {
       const data = await loginService(form);
 
-      await setItemAsync('accessToken', data.jwt);
+      storage.set('accessToken', data.jwt);
+
       if (form.requestRefresh) {
-        await setItemAsync('refreshToken', data.refreshToken);
+        storage.set('refreshToken', data.refreshToken);
       }
 
       await fetchUser();
@@ -82,13 +83,13 @@ export const AuthProvider = ({
   };
 
   const refreshAccessToken = async () => {
-    const refreshToken = await getItemAsync('refreshToken');
+    const refreshToken = storage.getString('refreshToken');
 
     if (refreshToken) {
       try {
         const data = await refreshService(refreshToken);
 
-        await setItemAsync('accessToken', data.jwt);
+        storage.set('accessToken', data.jwt);
         await fetchUser();
 
         return data.jwt;

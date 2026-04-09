@@ -38,7 +38,7 @@ const Login = () => {
           Bem vindo!
         </Text>
 
-        <Text className="font-inter text-lg text-neutral-500 dark:text-neutral-400">
+        <Text className="font-inter text-base text-neutral-500 dark:text-neutral-400">
           Insira seus dados para continuar
         </Text>
       </Animated.View>

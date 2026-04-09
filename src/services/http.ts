@@ -1,17 +1,18 @@
 import axios from 'axios';
-import * as SecureStore from 'expo-secure-store';
+
+import { storage } from '@/utils/storage';
 
 const http = axios.create({
   baseURL: 'https://',
 });
 
 http.interceptors.request.use(
-  async config => {
+  config => {
     if (config.data?._parts) {
       config.headers['Content-Type'] = 'multipart/form-data';
     }
 
-    const accessToken = await SecureStore.getItemAsync('accessToken');
+    const accessToken = storage.getString('accessToken');
     if (accessToken) {
       config.headers!.Authorization = `Bearer ${accessToken}`;
     }

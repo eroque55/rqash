@@ -2,14 +2,13 @@ const js = require('@eslint/js');
 const { defineConfig, globalIgnores } = require('eslint/config');
 const expoConfig = require('eslint-config-expo/flat');
 const eslintConfigPrettier = require('eslint-config-prettier/flat');
-const importPlugin = require('eslint-plugin-import');
 const pluginJest = require('eslint-plugin-jest');
 const preferArrowFunctions = require('eslint-plugin-prefer-arrow-functions');
 const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');
-const pluginReact = require('eslint-plugin-react');
 const pluginReactNative = require('eslint-plugin-react-native');
 const storybook = require('eslint-plugin-storybook');
 const testingLibrary = require('eslint-plugin-testing-library');
+const compat = require('@eslint/compat');
 
 module.exports = defineConfig([
   globalIgnores([
@@ -21,21 +20,19 @@ module.exports = defineConfig([
     '.expo/*',
     'web-build/*',
   ]),
-  pluginReact.configs.flat.recommended,
-  pluginReact.configs.flat['jsx-runtime'],
-  expoConfig,
-  importPlugin.flatConfigs.recommended,
+  js.configs.recommended,
+  compat.fixupConfigRules(expoConfig),
   eslintPluginPrettierRecommended,
   eslintConfigPrettier,
   storybook.configs['flat/recommended'],
-  testingLibrary.configs['flat/react'],
   pluginJest.configs['flat/recommended'],
+  testingLibrary.configs['flat/react'],
   {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}', 'src/**/*.test.{ts,tsx}'],
     plugins: {
       js,
       'prefer-arrow-functions': preferArrowFunctions,
-      'react-native': pluginReactNative,
+      'react-native': compat.fixupPluginRules(pluginReactNative),
     },
     extends: ['js/recommended'],
     languageOptions: {

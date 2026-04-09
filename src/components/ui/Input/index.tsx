@@ -91,8 +91,8 @@ const Input = <TFieldValues extends FieldValues>({
   const inputStyle: StyleProp<TextStyle> = {
     flexGrow: 1,
     padding: 12,
-    fontSize: 18,
-    lineHeight: 28,
+    fontSize: 16,
+    lineHeight: 24,
     color: isDark ? colors.neutral[400] : colors.neutral[500],
     paddingRight: handlePaddingRight(),
     paddingLeft: leftIcon ? 38 : undefined,
@@ -119,13 +119,13 @@ const Input = <TFieldValues extends FieldValues>({
       {...containerProps}
     >
       {label && (
-        <Text className="font-inter text-base text-neutral-600 dark:text-neutral-300">
+        <Text className="font-inter text-neutral-600 dark:text-neutral-300">
           {label}
         </Text>
       )}
 
       <View className="w-full gap-1">
-        <View className="w-full flex-row items-center rounded-full bg-white dark:bg-neutral-800">
+        <View className="w-full flex-row items-center overflow-hidden rounded-full bg-white dark:bg-neutral-800">
           {type ? (
             <TextInputMask
               ref={field.ref}

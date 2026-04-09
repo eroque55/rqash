@@ -32,7 +32,7 @@ const CheckboxField = <TFieldValues extends FieldValues>({
     >
       <Checkbox disabled isSelected={field.value} />
 
-      <Text className="font-inter text-sm text-neutral-600 dark:text-neutral-300">
+      <Text className="font-inter text-neutral-600 dark:text-neutral-300">
         {label}
       </Text>
     </AnimatedPressable>

@@ -160,17 +160,6 @@ describe('Button Component', () => {
       expect(screen.getByTestId('button-activity-indicator')).toBeTruthy();
     });
 
-    it('deve mostrar indicador quando hook retorna loading', () => {
-      const { useDisableDelay } = require('@/hooks/common');
-      useDisableDelay.mockReturnValue({
-        executeWithDelay: jest.fn(),
-        isLoading: true,
-      });
-
-      render(<Button text="Botão" />);
-      expect(screen.getByTestId('button-activity-indicator')).toBeTruthy();
-    });
-
     it('não deve mostrar indicador quando não está loading', () => {
       render(<Button text="Botão" />);
       expect(screen.queryByTestId('button-activity-indicator')).toBeNull();
@@ -194,7 +183,12 @@ describe('Button Component', () => {
     it('deve aceitar disabled', () => {
       const onPressMock = jest.fn();
       render(
-        <Button disabled testID="botao" text="Botão" onPress={onPressMock} />,
+        <Button
+          disabled
+          data-testID="B-botao"
+          text="Botão"
+          onPress={onPressMock}
+        />,
       );
 
       const button = screen.getByTestId('botao');

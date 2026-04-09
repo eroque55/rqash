@@ -1,12 +1,13 @@
-import { getItemAsync, setItemAsync } from 'expo-secure-store';
 import { useColorScheme } from 'nativewind';
 import { useEffect } from 'react';
+
+import { storage } from '@/utils/storage';
 
 export const useTheme = () => {
   const { colorScheme, setColorScheme } = useColorScheme();
 
-  const loadTheme = async () => {
-    const saved = await getItemAsync('theme');
+  const loadTheme = () => {
+    const saved = storage.getString('theme');
     if (saved) {
       setColorScheme(saved as 'light' | 'dark');
     }
@@ -16,10 +17,10 @@ export const useTheme = () => {
     loadTheme();
   }, []);
 
-  const toggleTheme = async () => {
+  const toggleTheme = () => {
     const newTheme = colorScheme === 'dark' ? 'light' : 'dark';
     setColorScheme(newTheme);
-    await setItemAsync('theme', newTheme);
+    storage.set('theme', newTheme);
   };
 
   return {

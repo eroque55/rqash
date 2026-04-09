@@ -37,7 +37,7 @@ export const ErrorBoundary = ({ error, retry }: ErrorBoundaryProps) => {
 
         {process.env.NODE_ENV === 'development' && (
           <Link
-            className="text-center text-sm text-white/40 underline decoration-solid"
+            className="text-center text-white/40 underline decoration-solid"
             href={'/_sitemap' as '/'}
           >
             Sitemap
