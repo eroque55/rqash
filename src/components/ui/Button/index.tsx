@@ -71,7 +71,7 @@ const Button = ({
 
   return (
     <AnimatedPressable
-      className="flex-row items-center justify-center gap-3 overflow-hidden rounded-full border-2 p-4"
+      className="flex-row items-center justify-center gap-3 overflow-hidden rounded-full border-2 p-3"
       layout={LinearTransition}
       style={[
         {
