@@ -36,7 +36,8 @@ const TabBarItem = ({ icon, label, href }: Props) => {
     <Pressable
       disabled
       withoutFeedback
-      className="items-center gap-1.5"
+      className="flex-1 items-center gap-1.5"
+      hitSlop={4}
       onPress={handlePress}
     >
       <Icon color={getColor()} name={icon} strokeWidth={1.7} />
