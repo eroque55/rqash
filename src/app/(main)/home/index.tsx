@@ -1,21 +1,38 @@
 import { Text, View } from 'react-native';
 
-import { Button } from '@/components/ui';
-import { useAuth } from '@/contexts/useAuth';
+import HomeIndicator from '@/components/pages/main/home/HomeIndicator';
+import { DefaultContainer } from '@/components/ui';
+import { formatCurrency } from '@/utils/format';
 
 const Home = () => {
-  const { user } = useAuth();
-
   return (
-    <View className="flex-1 items-center justify-center gap-20 p-4">
-      <View className="w-full">
-        <Text className="text-base text-neutral-600">Bem Vindo</Text>
+    <DefaultContainer showTabBar contentContainerClassName="px-5 py-10 gap-8">
+      <View className="gap-1">
+        <Text className="font-inter text-base text-neutral-500 dark:text-neutral-400">
+          Olá
+        </Text>
 
-        <Text className="text-lg text-neutral-100">{user?.name}</Text>
+        <Text className="font-inter_semiBold text-xl text-neutral-800 dark:text-neutral-200">
+          Bem-vindo ao RQash
+        </Text>
       </View>
 
-      <Button text="Sair" />
-    </View>
+      <View className="w-full gap-5 rounded-[20px] bg-primary-500 p-5">
+        <Text className="font-inter_medium text-base text-neutral-300">
+          Saldo total
+        </Text>
+
+        <Text className="font-inter_extraBold text-3xl text-white">
+          {formatCurrency(1234.56)}
+        </Text>
+
+        <View className="w-full flex-row gap-5">
+          <HomeIndicator title="Receitas" value={1234.56} />
+
+          <HomeIndicator title="Despesas" value={1234.56} />
+        </View>
+      </View>
+    </DefaultContainer>
   );
 };
 

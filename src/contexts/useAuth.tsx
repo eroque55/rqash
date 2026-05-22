@@ -1,5 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
 import {
   createContext,
   PropsWithChildren,
@@ -18,7 +19,7 @@ type ContextValues = {
   user: TUser | null;
   logout: (isDelete?: boolean) => void;
   login: (user: LoginForm) => Promise<void>;
-  loading: boolean;
+  isLoading: boolean;
 };
 
 const AuthContext = createContext({} as ContextValues);
@@ -28,7 +29,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const queryClient = useQueryClient();
 
   const [user, setUser] = useState<TUser | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { mutateAsync: loginService } = useLogin();
 
@@ -64,7 +65,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       });
     }
 
-    setLoading(false);
+    SplashScreen.hideAsync();
+    setIsLoading(false);
   }, []);
 
   api.interceptors.response.use(
@@ -87,7 +89,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         user,
         logout,
         login,
-        loading,
+        isLoading,
       }}
     >
       {children}
