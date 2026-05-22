@@ -13,7 +13,7 @@ import { colors } from '@/global/colors';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.neutral[100],
+    backgroundColor: colors.neutral[200],
     overflow: 'hidden',
   },
   animatedWrapper: {

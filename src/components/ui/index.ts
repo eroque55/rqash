@@ -1,8 +1,10 @@
+export { default as BackButton } from './BackButton';
 export { default as Button } from './Button';
 export { default as Checkbox } from './Checkbox';
+export { default as CheckboxField } from './CheckboxField';
+export { default as DefaultContainer } from './DefaultContainer';
 export { default as DefaultModal } from './DefaultModal';
 export { default as EmptyComponent } from './EmptyComponent';
-export { default as ErrorText } from './ErrorText';
 export { default as Icon } from './Icon';
 export { default as Image } from './Image';
 export { default as Input } from './Input';
@@ -10,3 +12,5 @@ export { default as KeyboardAwareScrollView } from './KeyboardAwareScrollView';
 export { default as ModalBackdrop } from './ModalBackdrop';
 export { default as Pressable } from './Pressable';
 export { default as Shimmer } from './Shimmer';
+export { default as Switch } from './Switch';
+export { default as TabBar } from './TabBar';

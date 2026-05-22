@@ -35,8 +35,9 @@ const Button = ({
   withoutDelay = false,
   width = '100%',
   leftIcon,
+  style,
   ...props
-}: PropsWithChildren<Props>) => {
+}: Props) => {
   const { executeWithDelay, isLoading: loading } = useDisableDelay();
 
   const handleColor = () => {
@@ -52,7 +53,7 @@ const Button = ({
       return color;
     }
 
-    return colors.white;
+    return colors.neutral[100];
   };
 
   const handlePress = async (e: GestureResponderEvent) => {
@@ -70,13 +71,16 @@ const Button = ({
 
   return (
     <AnimatedPressable
-      className="flex-row items-center justify-center gap-3 overflow-hidden rounded-lg border-2 p-2"
+      className="flex-row items-center justify-center gap-3 overflow-hidden rounded-full border-2 p-3"
       layout={LinearTransition}
-      style={{
-        backgroundColor: handleColor(),
-        borderColor: wired ? color : colors.transparent,
-        width,
-      }}
+      style={[
+        {
+          backgroundColor: handleColor(),
+          borderColor: wired ? color : colors.transparent,
+          width,
+        },
+        style,
+      ]}
       onPress={handlePress}
       {...props}
     >
@@ -85,7 +89,7 @@ const Button = ({
       )}
 
       <Text
-        className="text-base"
+        className="font-inter_medium text-base"
         style={{
           color: handleTextColor(),
         }}
@@ -93,7 +97,9 @@ const Button = ({
         {text}
       </Text>
 
-      {(isLoading || loading) && <ButtonActivityIndicator />}
+      {(isLoading || loading) && (
+        <ButtonActivityIndicator isLoading={isLoading || loading} />
+      )}
     </AnimatedPressable>
   );
 };

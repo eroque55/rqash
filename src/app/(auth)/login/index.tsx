@@ -1,65 +1,80 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { updateId } from 'expo-updates';
-import { useEffect, useState } from 'react';
+import { Image } from 'expo-image';
 import { useForm } from 'react-hook-form';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Animated, { LinearTransition } from 'react-native-reanimated';
 
-import { Button, Checkbox, Input, Pressable } from '@/components/ui';
+import { LoginImg } from '@/assets/images';
+import {
+  Button,
+  CheckboxField,
+  DefaultContainer,
+  Input,
+} from '@/components/ui';
 import { useAuth } from '@/contexts/useAuth';
 import { LoginForm, LoginSchema } from '@/validation/login.validation';
 
-const Login = () => {
-  const { login, logout } = useAuth();
+export const styles = StyleSheet.create({
+  image: {
+    aspectRatio: 1,
+    width: 240,
+  },
+});
 
-  const [showUpdateId, setShowUpdateId] = useState(false);
+const Login = () => {
+  const { login } = useAuth();
 
   const { control, handleSubmit } = useForm<LoginForm>({
     resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+      requestRefresh: false,
+    },
   });
 
-  useEffect(() => {
-    logout();
-  }, []);
-
   return (
-    <View className="flex-1 items-center justify-center gap-4 p-4">
-      <Input
-        control={control}
-        keyboardType="email-address"
-        label="E-mail"
-        name="identifier"
-        placeholder="E-mail"
-      />
+    <DefaultContainer contentContainerClassName="flex-grow items-center justify-center gap-8 p-6">
+      <Image source={LoginImg} style={styles.image} />
 
-      <Input
-        isPassword
-        control={control}
-        label="Senha"
-        name="password"
-        placeholder="Senha"
-      />
+      <Animated.View className="w-full gap-1" layout={LinearTransition}>
+        <Text className="font-inter_medium text-2xl text-neutral-800 dark:text-neutral-100">
+          Bem vindo!
+        </Text>
 
-      <Animated.View
-        className="w-full flex-row items-center gap-2"
-        layout={LinearTransition}
-      >
-        <Checkbox control={control} name="requestRefresh" />
+        <Text className="font-inter text-base text-neutral-500 dark:text-neutral-400">
+          Insira seus dados para continuar
+        </Text>
+      </Animated.View>
 
-        <Text className="text-neutral-80 text-base">Manter-me conectado</Text>
+      <Animated.View className="w-full gap-5" layout={LinearTransition}>
+        <Input
+          control={control}
+          keyboardType="email-address"
+          label="E-mail"
+          name="email"
+          placeholder="E-mail"
+        />
+
+        <View className="w-full items-start gap-3">
+          <Input
+            isPassword
+            control={control}
+            label="Senha"
+            name="password"
+            placeholder="Senha"
+          />
+
+          <CheckboxField
+            control={control}
+            label="Manter-me conectado"
+            name="requestRefresh"
+          />
+        </View>
       </Animated.View>
 
       <Button text="Entrar" onPress={handleSubmit(login)} />
-
-      <Pressable
-        className="absolute bottom-8 h-4 w-full items-center justify-center"
-        onPress={() => setShowUpdateId(!showUpdateId)}
-      >
-        {showUpdateId && (
-          <Text className="text-xs text-neutral-600">{updateId}</Text>
-        )}
-      </Pressable>
-    </View>
+    </DefaultContainer>
   );
 };
 
