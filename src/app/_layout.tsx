@@ -87,7 +87,7 @@ const RootLayout = () => {
       <QueryClientProvider client={queryClient}>
         <KeyboardProvider>
           <SafeAreaProvider>
-            <AuthProvider isAppReady={isAppReady}>
+            <AuthProvider>
               <StatusBar style="auto" />
 
               <Stack

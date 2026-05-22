@@ -1,6 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
 import {
   createContext,
   PropsWithChildren,
@@ -22,16 +21,9 @@ type ContextValues = {
   loading: boolean;
 };
 
-type Props = {
-  isAppReady: boolean;
-};
-
 const AuthContext = createContext({} as ContextValues);
 
-export const AuthProvider = ({
-  children,
-  isAppReady,
-}: PropsWithChildren<Props>) => {
+export const AuthProvider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -74,14 +66,6 @@ export const AuthProvider = ({
 
     setLoading(false);
   }, []);
-
-  useEffect(() => {
-    if (!isAppReady || loading) {
-      return;
-    }
-
-    SplashScreen.hideAsync();
-  }, [isAppReady, loading]);
 
   api.interceptors.response.use(
     response => response,
