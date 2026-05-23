@@ -1,6 +1,8 @@
 import { Text, View } from 'react-native';
 
-import { DefaultContainer, Icon, Switch } from '@/components/ui';
+import ProfileItem from '@/components/pages/main/profile/ProfileItem';
+import { DefaultContainer, Icon, Pressable, Switch } from '@/components/ui';
+import Divider from '@/components/ui/Divider';
 import { useAuth } from '@/contexts/useAuth';
 import { useTheme } from '@/hooks/common/useTheme';
 
@@ -30,7 +32,10 @@ const Profile = () => {
         </View>
       </View>
 
-      <View className="flex-row items-center gap-4 rounded-[20px] bg-white p-5 dark:bg-neutral-800">
+      <Pressable
+        className="flex-row items-center gap-4 overflow-hidden rounded-[20px] bg-white p-5 dark:bg-neutral-800"
+        onPress={toggleTheme}
+      >
         <Icon name="MoonIcon" />
 
         <View className="flex-1">
@@ -44,6 +49,31 @@ const Profile = () => {
         </View>
 
         <Switch isActive={isDark} onChange={toggleTheme} />
+      </Pressable>
+
+      <View className="overflow-hidden rounded-[20px] bg-white dark:bg-neutral-800">
+        <ProfileItem
+          description="Senha e autenticação"
+          icon="ShieldIcon"
+          title="Segurança"
+        />
+
+        <Divider />
+
+        <ProfileItem
+          description="Central de suporte"
+          icon="QuestionMarkIcon"
+          title="Ajuda"
+        />
+
+        <Divider />
+
+        <ProfileItem
+          isLogOut
+          description="Encerrar sessão"
+          icon="LogOutIcon"
+          title="Sair"
+        />
       </View>
     </DefaultContainer>
   );

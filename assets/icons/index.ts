@@ -1,3 +1,4 @@
+export { default as ArrowIcon } from './Arrow.svg';
 export { default as ArrowsHorizontalIcon } from './ArrowsHorizontal.svg';
 export { default as CheckIcon } from './Check.svg';
 export { default as ChevronIcon } from './Chevron.svg';
@@ -5,10 +6,13 @@ export { default as EyeIcon } from './Eye.svg';
 export { default as EyeOffIcon } from './EyeOff.svg';
 export { default as GridIcon } from './Grid.svg';
 export { default as HomeIcon } from './Home.svg';
+export { default as LogOutIcon } from './LogOut.svg';
 export { default as MagnifyingGlassIcon } from './MagnifyingGlass.svg';
 export { default as MoonIcon } from './Moon.svg';
 export { default as PadlockIcon } from './Padlock.svg';
 export { default as PlusIcon } from './Plus.svg';
 export { default as PlusCircleIcon } from './PlusCircle.svg';
+export { default as QuestionMarkIcon } from './QuestionMark.svg';
+export { default as ShieldIcon } from './Shield.svg';
 export { default as SliderIcon } from './Slider.svg';
 export { default as UserIcon } from './User.svg';
