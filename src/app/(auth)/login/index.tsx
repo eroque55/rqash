@@ -34,7 +34,7 @@ const Login = () => {
   });
 
   return (
-    <DefaultContainer contentContainerClassName="flex-grow items-center justify-center gap-8 p-6">
+    <DefaultContainer contentContainerClassName="grow items-center justify-center gap-8 p-6">
       <Image source={LoginImg} style={styles.image} />
 
       <Animated.View className="w-full gap-1" layout={LinearTransition}>

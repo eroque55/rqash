@@ -1,3 +1,37 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css';
+
+@import 'nativewind/theme';
+
+@theme {
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 30px;
+  --text-4xl: 36px;
+  --text-5xl: 48px;
+  --text-6xl: 60px;
+  --text-7xl: 72px;
+  --text-8xl: 96px;
+  --text-9xl: 128px;
+
+  --color-primary-300: #726bea;
+  --color-primary-400: #6159e8;
+  --color-primary-500: #4f46e5;
+  --color-primary-600: #473fce;
+
+  --color-alert-success: #10b981;
+  --color-alert-error: #ef4444;
+
+  --color-light-background: #eeeeee;
+
+  --font-inter: 'Inter_400Regular';
+  --font-inter_medium: 'Inter_500Medium';
+  --font-inter_semiBold: 'Inter_600SemiBold';
+  --font-inter_bold: 'Inter_700Bold';
+  --font-inter_extraBold: 'Inter_800ExtraBold';
+}

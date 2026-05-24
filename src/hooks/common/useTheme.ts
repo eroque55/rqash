@@ -1,26 +1,11 @@
-import { useColorScheme } from 'nativewind';
-import { useEffect } from 'react';
-
-import { storage } from '@/utils/storage';
+import { Appearance, ColorSchemeName, useColorScheme } from 'react-native';
 
 export const useTheme = () => {
-  const { colorScheme, setColorScheme } = useColorScheme();
-
-  const loadTheme = () => {
-    const saved = storage.getString('theme');
-    if (saved) {
-      setColorScheme(saved as 'light' | 'dark');
-    }
-  };
-
-  useEffect(() => {
-    loadTheme();
-  }, []);
+  const colorScheme = useColorScheme();
 
   const toggleTheme = () => {
-    const newTheme = colorScheme === 'dark' ? 'light' : 'dark';
-    setColorScheme(newTheme);
-    storage.set('theme', newTheme);
+    const newTheme: ColorSchemeName = colorScheme === 'dark' ? 'light' : 'dark';
+    Appearance.setColorScheme(newTheme);
   };
 
   return {

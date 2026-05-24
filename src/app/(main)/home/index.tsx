@@ -1,8 +1,8 @@
 import { Text, View } from 'react-native';
 
-import HomeIndicator from '@/components/pages/main/home/HomeIndicator';
+import ExpensesByCategory from '@/components/pages/main/home/ExpensesByCategory';
+import HomeSummary from '@/components/pages/main/home/HomeSummary';
 import { DefaultContainer } from '@/components/ui';
-import { formatCurrency } from '@/utils/format';
 
 const Home = () => {
   return (
@@ -17,21 +17,9 @@ const Home = () => {
         </Text>
       </View>
 
-      <View className="w-full gap-5 rounded-[20px] bg-primary-500 p-5">
-        <Text className="font-inter_medium text-base text-neutral-300">
-          Saldo total
-        </Text>
+      <HomeSummary />
 
-        <Text className="font-inter_extraBold text-3xl text-white">
-          {formatCurrency(1234.56)}
-        </Text>
-
-        <View className="w-full flex-row gap-5">
-          <HomeIndicator title="Receitas" value={1234.56} />
-
-          <HomeIndicator title="Despesas" value={1234.56} />
-        </View>
-      </View>
+      <ExpensesByCategory />
     </DefaultContainer>
   );
 };

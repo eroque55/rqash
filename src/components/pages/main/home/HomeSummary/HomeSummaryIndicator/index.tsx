@@ -7,13 +7,19 @@ import { formatCurrency } from '@/utils/format';
 type Props = {
   title: string;
   value: number;
+  iconRotation?: number;
 };
 
-const HomeIndicator = ({ title, value }: Props) => {
+const HomeSummaryIndicator = ({ title, value, iconRotation = 0 }: Props) => {
   return (
     <View className="flex-1 flex-row items-center gap-3 rounded-[20px] bg-primary-400 p-3">
       <View className="rounded-full bg-primary-300 p-3">
-        <Icon color={colors.white} name="ChevronIcon" size={20} />
+        <Icon
+          color={colors.white}
+          name="ArrowIcon"
+          rotate={iconRotation}
+          size={12}
+        />
       </View>
 
       <View className="flex-1 gap-1">
@@ -29,4 +35,4 @@ const HomeIndicator = ({ title, value }: Props) => {
   );
 };
 
-export default HomeIndicator;
+export default HomeSummaryIndicator;

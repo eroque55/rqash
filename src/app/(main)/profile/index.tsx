@@ -17,7 +17,7 @@ const Profile = () => {
       </Text>
 
       <View className="flex-row items-center gap-3 rounded-[20px] bg-white p-5 dark:bg-neutral-800">
-        <View className="size-14 items-center justify-center rounded-full bg-primary-500">
+        <View className="bg-primary-500 size-14 items-center justify-center rounded-full">
           <Text className="font-inter_bold text-xl text-white">R</Text>
         </View>
 
