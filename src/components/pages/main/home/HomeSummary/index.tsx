@@ -6,7 +6,7 @@ import HomeSummaryIndicator from './HomeSummaryIndicator';
 
 const HomeSummary = () => {
   return (
-    <View className="w-full gap-5 rounded-[20px] bg-primary-500 p-5">
+    <View className="bg-primary-500 w-full gap-5 rounded-[20px] p-5">
       <Text className="font-inter_medium text-base text-neutral-300">
         Saldo total
       </Text>

@@ -12,8 +12,8 @@ type Props = {
 
 const HomeSummaryIndicator = ({ title, value, iconRotation = 0 }: Props) => {
   return (
-    <View className="flex-1 flex-row items-center gap-3 rounded-[20px] bg-primary-400 p-3">
-      <View className="rounded-full bg-primary-300 p-3">
+    <View className="bg-primary-400 flex-1 flex-row items-center gap-3 rounded-[20px] p-3">
+      <View className="bg-primary-300 rounded-full p-3">
         <Icon
           color={colors.white}
           name="ArrowIcon"

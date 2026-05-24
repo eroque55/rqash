@@ -176,7 +176,7 @@ const Input = <TFieldValues extends FieldValues>({
 
         {error?.message && (
           <Animated.Text
-            className="text-xs text-alert-error"
+            className="text-alert-error text-xs"
             entering={FadeIn}
             exiting={FadeOut}
           >

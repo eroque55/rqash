@@ -14,7 +14,7 @@ const TabBar = () => {
 
       <TabBarItem icon="ArrowsHorizontalIcon" label="Transações" />
 
-      <Pressable className="-mx-1 -mt-8 mb-2 size-16 items-center justify-center overflow-hidden rounded-full bg-primary-500">
+      <Pressable className="bg-primary-500 -mx-1 -mt-8 mb-2 size-16 items-center justify-center overflow-hidden rounded-full">
         <Icon color={colors.white} name="PlusIcon" strokeWidth={2.5} />
       </Pressable>
 

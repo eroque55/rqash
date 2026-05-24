@@ -1,5 +1,5 @@
-import * as Updates from "expo-updates";
-import { useEffect, useState } from "react";
+import * as Updates from 'expo-updates';
+import { useEffect, useState } from 'react';
 
 export const useUpdate = () => {
   const [needsCheck, setNeedsCheck] = useState(true);

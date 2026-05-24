@@ -28,6 +28,7 @@
     "react-native": "0.85.3",
     "react-native-css": "^3.0.7",
     "react-native-gesture-handler": "~2.31.2",
+    "react-native-gifted-charts": "^1.4.77",
     "react-native-keyboard-controller": "1.21.6",
     "react-native-masked-text": "^1.13.0",
     "react-native-mmkv": "^4.3.1",

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export const useProgressiveLoading = (delays: number[]) => {
   const [loadedComponents, setLoadedComponents] = useState<boolean[]>(
@@ -8,7 +8,7 @@ export const useProgressiveLoading = (delays: number[]) => {
   useEffect(() => {
     const timers = delays.map((delay, index) =>
       setTimeout(() => {
-        setLoadedComponents((prev) => {
+        setLoadedComponents(prev => {
           const newState = [...prev];
           newState[index] = true;
           return newState;
@@ -17,7 +17,7 @@ export const useProgressiveLoading = (delays: number[]) => {
     );
 
     return () => {
-      timers.forEach((timer) => clearTimeout(timer));
+      timers.forEach(timer => clearTimeout(timer));
     };
   }, []);
 

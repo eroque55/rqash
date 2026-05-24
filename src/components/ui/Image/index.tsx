@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-imports */
 import { Image as ExpoImage, ImageProps } from 'expo-image';
 import { PropsWithChildren, useState } from 'react';
 import { View, ViewProps } from 'react-native';
