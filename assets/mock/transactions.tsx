@@ -1,4 +1,5 @@
-import { TCategory, TTransaction } from '@/types/transaction';
+import { TCategory } from '@/types/category';
+import { TTransaction } from '@/types/transaction';
 
 export const mockCategories: TCategory[] = [
   {
@@ -17,6 +18,12 @@ export const mockCategories: TCategory[] = [
     id: '3',
     name: 'Entretenimento',
     color: '#f59e0b',
+    icon: 'GridIcon',
+  },
+  {
+    id: '4',
+    name: 'Saúde',
+    color: '#10b981',
     icon: 'GridIcon',
   },
 ];

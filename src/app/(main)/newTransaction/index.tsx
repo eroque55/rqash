@@ -2,8 +2,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 
+import CategoriesList from '@/components/pages/main/newTransaction/CategoriesList';
 import NewTransactionInput from '@/components/pages/main/newTransaction/NewTransactionInput';
-import { DefaultContainer } from '@/components/ui';
+import { Button, DefaultContainer } from '@/components/ui';
 import Tab from '@/components/ui/Tab';
 import { colors } from '@/global/colors';
 import {
@@ -83,6 +84,14 @@ const NewTransaction = () => {
         placeholder="dd/mm/yyyy"
         type="datetime"
       />
+
+      <Text className="font-inter_medium text-xs text-neutral-600 dark:text-neutral-300">
+        Categoria
+      </Text>
+
+      <CategoriesList control={control} name="category" />
+
+      <Button text="Salvar transação" />
     </DefaultContainer>
   );
 };
