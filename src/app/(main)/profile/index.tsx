@@ -1,3 +1,4 @@
+import Constants from 'expo-constants';
 import { Text, View } from 'react-native';
 
 import ProfileItem from '@/components/pages/main/profile/ProfileItem';
@@ -75,6 +76,10 @@ const Profile = () => {
           title="Sair"
         />
       </View>
+
+      <Text className="font-inter self-center text-xs text-neutral-500 dark:text-neutral-400">
+        {`v${Constants.expoConfig?.version}`}
+      </Text>
     </DefaultContainer>
   );
 };
