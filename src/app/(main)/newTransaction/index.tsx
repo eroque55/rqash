@@ -40,7 +40,7 @@ const NewTransaction = () => {
     openModal({
       title: 'Transação salva',
       message: 'Sua transação foi salva com sucesso.',
-      confirmText: 'OK',
+      confirmText: 'Voltar',
       onConfirm: () => router.back(),
     });
   };

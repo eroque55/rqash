@@ -24,7 +24,7 @@ const TabBarItem = ({ icon, label, href }: Props) => {
     if (!href) {
       return;
     }
-    router.push(href);
+    router.replace(href);
   };
 
   const getColor = () => {

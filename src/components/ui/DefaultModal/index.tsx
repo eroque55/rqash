@@ -51,23 +51,30 @@ const DefaultModal = () => {
     <ModalBackdrop>
       <View
         key={modal.message}
-        className="w-full overflow-hidden rounded-lg bg-white"
+        className="w-full overflow-hidden rounded-lg bg-white dark:bg-neutral-800"
       >
-        <View className="bg-neutral-background p-3">
-          <Text className="text-xl text-neutral-100">{modal.title}</Text>
+        <View className="bg-neutral-100 p-3 dark:bg-neutral-700">
+          <Text className="font-inter text-lg text-neutral-600 dark:text-neutral-200">
+            {modal.title}
+          </Text>
         </View>
 
-        <View className="border-neutral-20 min-h-28 gap-2 border-y p-3">
-          <Text className="text-neutral-80 text-base">{modal.message}</Text>
+        <View className="min-h-28 gap-2 border-t border-b border-neutral-200 p-3 dark:border-neutral-600">
+          <Text className="font-inter text-base text-neutral-600 dark:text-neutral-300">
+            {modal.message}
+          </Text>
 
           {modal.notice && (
-            <Text className="text-neutral-60 text-sm">{modal.notice}</Text>
+            <Text className="font-inter text-sm text-neutral-400">
+              {modal.notice}
+            </Text>
           )}
         </View>
 
         <View className="flex-row">
           {modal.cancelText && (
             <DefaultModalButton
+              showBorder
               text={modal.cancelText}
               onPress={handleCancel}
             />

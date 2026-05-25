@@ -34,7 +34,7 @@ const Pressable = ({
           {children}
 
           {pressed && !withoutFeedback && (
-            <View className="absolute inset-0 bg-black/10 dark:bg-white/10" />
+            <View className="absolute inset-0 bg-[rgba(0,0,0,0.1)] dark:bg-[rgba(255,255,255,0.1)]" />
           )}
         </>
       )}

@@ -14,7 +14,7 @@ const ButtonActivityIndicator = ({ isLoading }: Props) => {
 
   return (
     <Animated.View
-      className="absolute -inset-1 items-center justify-center bg-black/30"
+      className="absolute -inset-1 items-center justify-center bg-[rgba(0,0,0,0.3)]"
       entering={FadeIn}
       exiting={FadeOut}
       testID="button-activity-indicator"
