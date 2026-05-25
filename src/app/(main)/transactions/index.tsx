@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { Text, View } from 'react-native';
 
+import TransactionList from '@/components/pages/main/transactions/TransactionsList';
 import { DefaultContainer } from '@/components/ui';
 import Tab from '@/components/ui/Tab';
 
-type TPage = 'all' | 'income' | 'expenses';
+export type TTransactionPage = 'all' | 'income' | 'expenses';
 
 const Transactions = () => {
-  const [page, setPage] = useState<TPage>('all');
+  const [page, setPage] = useState<TTransactionPage>('all');
 
-  const handleTabPress = (selectedPage: TPage) => {
+  const handleTabPress = (selectedPage: TTransactionPage) => {
     setPage(selectedPage);
   };
 
@@ -38,6 +39,8 @@ const Transactions = () => {
           onPress={() => handleTabPress('expenses')}
         />
       </View>
+
+      <TransactionList page={page} />
     </DefaultContainer>
   );
 };
