@@ -1,4 +1,4 @@
-import { Text } from 'react-native';
+import { Text, ViewStyle } from 'react-native';
 
 import { colors } from '@/global/colors';
 import { useTheme } from '@/hooks/common/useTheme';
@@ -9,9 +9,17 @@ type Props = {
   text: string;
   onPress: () => void;
   isActive?: boolean;
+  activeBackgroundColor?: string;
+  containerStyle?: ViewStyle;
 };
 
-const Tab = ({ isActive = false, onPress, text }: Props) => {
+const Tab = ({
+  isActive = false,
+  onPress,
+  text,
+  activeBackgroundColor = colors.primary[500],
+  containerStyle,
+}: Props) => {
   const { isDark } = useTheme();
 
   const getTextColor = () => {
@@ -28,10 +36,15 @@ const Tab = ({ isActive = false, onPress, text }: Props) => {
 
   return (
     <Pressable
-      className="overflow-hidden rounded-full px-4 py-3"
-      style={{
-        backgroundColor: isActive ? colors.primary[500] : colors.transparent,
-      }}
+      className="items-center overflow-hidden rounded-full px-4 py-3"
+      style={[
+        {
+          backgroundColor: isActive
+            ? activeBackgroundColor
+            : colors.transparent,
+        },
+        containerStyle,
+      ]}
       onPress={onPress}
     >
       <Text
