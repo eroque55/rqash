@@ -24,7 +24,7 @@ const CategoriesList = <TFieldValues extends FieldValues>({
   });
 
   return (
-    <>
+    <View className="gap-2">
       <FlashList
         contentContainerClassName="-mx-1.5"
         data={mockCategories}
@@ -49,7 +49,7 @@ const CategoriesList = <TFieldValues extends FieldValues>({
           {error.message}
         </Animated.Text>
       )}
-    </>
+    </View>
   );
 };
 

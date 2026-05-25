@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 
@@ -7,24 +8,42 @@ import NewTransactionInput from '@/components/pages/main/newTransaction/NewTrans
 import { Button, DefaultContainer } from '@/components/ui';
 import Tab from '@/components/ui/Tab';
 import { colors } from '@/global/colors';
+import { useDefaultModal } from '@/store/defaultModalStore';
 import {
   NewTransactionForm,
   NewTransactionSchema,
 } from '@/validation/newTransaction.validation';
 
 const NewTransaction = () => {
-  const { control, setValue, watch } = useForm<NewTransactionForm>({
-    resolver: zodResolver(NewTransactionSchema),
-    defaultValues: {
-      type: 'expense',
-      amount: '0',
-      description: '',
-      date: '',
-      category: '',
-    },
-  });
+  const router = useRouter();
+  const { openModal } = useDefaultModal();
+
+  const { control, setValue, watch, handleSubmit } =
+    useForm<NewTransactionForm>({
+      resolver: zodResolver(NewTransactionSchema),
+      defaultValues: {
+        type: 'expense',
+        amount: '0',
+        description: '',
+        date: '',
+        category: '',
+      },
+    });
 
   const { type } = watch();
+
+  const onSubmit = (data: NewTransactionForm) => {
+    console.log('----------------------data----------------------');
+    console.log(JSON.stringify(data, null, 2));
+    console.log('----------------------data----------------------');
+
+    openModal({
+      title: 'Transação salva',
+      message: 'Sua transação foi salva com sucesso.',
+      confirmText: 'OK',
+      onConfirm: () => router.back(),
+    });
+  };
 
   return (
     <DefaultContainer showTabBar contentContainerClassName="px-5 py-10 gap-6">
@@ -91,7 +110,7 @@ const NewTransaction = () => {
 
       <CategoriesList control={control} name="category" />
 
-      <Button text="Salvar transação" />
+      <Button text="Salvar transação" onPress={handleSubmit(onSubmit)} />
     </DefaultContainer>
   );
 };
