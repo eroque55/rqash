@@ -1,6 +1,6 @@
-import { TTransaction, TTransactionCategory } from '@/types/transaction';
+import { TCategory, TTransaction } from '@/types/transaction';
 
-export const mockCategories: TTransactionCategory[] = [
+export const mockCategories: TCategory[] = [
   {
     id: '1',
     name: 'Comida',

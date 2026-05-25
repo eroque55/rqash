@@ -22,7 +22,11 @@ const TabBar = () => {
         <Icon color={colors.white} name="PlusIcon" strokeWidth={2.5} />
       </Pressable>
 
-      <TabBarItem icon="GridIcon" label="Categorias" />
+      <TabBarItem
+        href="/(main)/categories"
+        icon="GridIcon"
+        label="Categorias"
+      />
 
       <TabBarItem href="/(main)/profile" icon="UserIcon" label="Perfil" />
     </View>
