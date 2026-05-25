@@ -2,6 +2,7 @@ import { Text, View } from 'react-native';
 
 import ExpensesByCategory from '@/components/pages/main/home/ExpensesByCategory';
 import HomeSummary from '@/components/pages/main/home/HomeSummary';
+import LastTransactions from '@/components/pages/main/home/LastTransactions';
 import { DefaultContainer } from '@/components/ui';
 
 const Home = () => {
@@ -20,6 +21,8 @@ const Home = () => {
       <HomeSummary />
 
       <ExpensesByCategory />
+
+      <LastTransactions />
     </DefaultContainer>
   );
 };

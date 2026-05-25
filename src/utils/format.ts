@@ -1,5 +1,7 @@
-export const formatCurrency = (value: number) => {
-  return value.toLocaleString('pt-br', {
+export const formatCurrency = (value: number, absolute: boolean = false) => {
+  const parsedValue = absolute ? Math.abs(value) : value;
+
+  return parsedValue.toLocaleString('pt-br', {
     style: 'currency',
     currency: 'BRL',
   });

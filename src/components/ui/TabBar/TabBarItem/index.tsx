@@ -43,7 +43,7 @@ const TabBarItem = ({ icon, label, href }: Props) => {
       hitSlop={4}
       onPress={handlePress}
     >
-      <Icon color={getColor()} name={icon} strokeWidth={1.7} />
+      <Icon color={getColor()} name={icon} size={18} strokeWidth={1.7} />
 
       <Text className="font-inter text-xs" style={{ color: getColor() }}>
         {label}
