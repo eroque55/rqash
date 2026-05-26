@@ -216,7 +216,12 @@ module.exports = defineConfig([
             {
               name: 'react-native',
               importNames: ['Image'],
-              message: 'Please import from expo-image instead',
+              message: 'Please import from @/components/ui/Image instead',
+            },
+            {
+              name: 'expo-image',
+              importNames: ['Image'],
+              message: 'Please import from @/components/ui/Image instead',
             },
             {
               name: 'react-native',

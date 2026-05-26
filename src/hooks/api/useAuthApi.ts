@@ -7,3 +7,15 @@ export const useLogin = () => {
     mutationFn: authService.login,
   });
 };
+
+export const useLogout = () => {
+  return useMutation({
+    mutationFn: authService.logout,
+  });
+};
+
+export const useCreateUser = () => {
+  return useMutation({
+    mutationFn: authService.createUser,
+  });
+};

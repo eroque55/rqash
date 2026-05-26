@@ -10,14 +10,14 @@ import {
 } from 'react';
 
 import { useLogin } from '@/hooks/api/useAuthApi';
-import { api } from '@/services/api';
 import { TUser } from '@/types/user';
 import { storage } from '@/utils/storage';
+import { supabase } from '@/utils/supabase';
 import { LoginForm } from '@/validation/login.validation';
 
 type ContextValues = {
   user: TUser | null;
-  logout: () => void;
+  logout: () => Promise<void>;
   login: (user: LoginForm) => Promise<void>;
   isLoading: boolean;
 };
@@ -33,25 +33,26 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const { mutateAsync: loginService } = useLogin();
 
-  const logout = () => {
+  const logout = async () => {
     setUser(null);
     storage.clearAll();
     queryClient.clear();
+    await supabase.auth.signOut();
   };
 
   const login = async (form: LoginForm) => {
     try {
       const data = await loginService(form);
 
-      storage.set('accessToken', data.jwt);
+      storage.set('accessToken', data.session.access_token);
+
       if (form.requestRefresh) {
-        storage.set('email', form.email);
+        storage.set('refreshToken', data.session.refresh_token);
       }
 
       router.replace('/(main)/home');
-    } catch (err) {
-      logout();
-      throw err;
+    } catch {
+      await logout();
     }
   };
 
@@ -68,20 +69,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     SplashScreen.hideAsync();
     setIsLoading(false);
   }, []);
-
-  api.interceptors.response.use(
-    response => response,
-    error => {
-      if (error.message === 'Network Error') {
-        return Promise.reject(new Error('Sem conexão com a internet!'));
-      }
-      if (error.code === 'ERR_SECURESTORE_ENCRYPT_FAILURE') {
-        logout();
-        return;
-      }
-      return Promise.reject(error);
-    },
-  );
 
   return (
     <AuthContext.Provider

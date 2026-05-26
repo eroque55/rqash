@@ -21,9 +21,9 @@ const Profile = () => {
       message: 'Tem certeza que deseja sair da sua conta?',
       confirmText: 'Sair',
       cancelText: 'Cancelar',
-      onConfirm: () => {
-        logout();
+      onConfirm: async () => {
         router.replace('/(auth)/login');
+        await logout();
       },
     });
   };

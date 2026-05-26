@@ -5,28 +5,30 @@ import { Text, View } from 'react-native';
 import Animated, { LinearTransition } from 'react-native-reanimated';
 
 import { LoginImg } from '@/assets/images';
-import {
-  Button,
-  CheckboxField,
-  DefaultContainer,
-  Image,
-  Input,
-} from '@/components/ui';
-import { useAuth } from '@/contexts/useAuth';
-import { LoginForm, LoginSchema } from '@/validation/login.validation';
+import { Button, DefaultContainer, Image, Input } from '@/components/ui';
+import { useCreateUser } from '@/hooks/api/useAuthApi';
+import { SignUpForm, SignUpSchema } from '@/validation/signUp.validation';
 
-const Login = () => {
+const SignUp = () => {
   const router = useRouter();
-  const { login } = useAuth();
 
-  const { control, handleSubmit } = useForm<LoginForm>({
-    resolver: zodResolver(LoginSchema),
+  const { mutateAsync } = useCreateUser();
+
+  const { control, handleSubmit } = useForm<SignUpForm>({
+    resolver: zodResolver(SignUpSchema),
     defaultValues: {
+      name: '',
       email: '',
       password: '',
-      requestRefresh: false,
+      confirmPassword: '',
     },
   });
+
+  const onSubmit = async (form: SignUpForm) => {
+    await mutateAsync(form);
+
+    router.replace('/(main)/home');
+  };
 
   return (
     <DefaultContainer contentContainerClassName="grow items-center justify-center gap-8 p-6">
@@ -34,15 +36,23 @@ const Login = () => {
 
       <Animated.View className="w-full gap-1" layout={LinearTransition}>
         <Text className="font-inter_medium text-2xl text-neutral-800 dark:text-neutral-100">
-          Bem vindo!
+          Crie sua conta
         </Text>
 
         <Text className="font-inter text-base text-neutral-500 dark:text-neutral-400">
-          Insira seus dados para continuar
+          Organize suas finanças com o RQash
         </Text>
       </Animated.View>
 
       <Animated.View className="w-full gap-5" layout={LinearTransition}>
+        <Input
+          autoCapitalize="words"
+          control={control}
+          label="Nome completo"
+          name="name"
+          placeholder="Insira seu nome"
+        />
+
         <Input
           control={control}
           keyboardType="email-address"
@@ -51,39 +61,39 @@ const Login = () => {
           placeholder="Insira seu e-mail"
         />
 
-        <View className="w-full items-start gap-3">
-          <Input
-            isPassword
-            control={control}
-            label="Senha"
-            name="password"
-            placeholder="Insira sua senha"
-          />
+        <Input
+          isPassword
+          control={control}
+          label="Senha"
+          name="password"
+          placeholder="Insira sua senha"
+        />
 
-          <CheckboxField
-            control={control}
-            label="Manter-me conectado"
-            name="requestRefresh"
-          />
-        </View>
+        <Input
+          isPassword
+          control={control}
+          label="Confirmar senha"
+          name="confirmPassword"
+          placeholder="Confirme sua senha"
+        />
       </Animated.View>
 
       <View className="w-full items-center gap-4">
-        <Button text="Entrar" onPress={handleSubmit(login)} />
+        <Button text="Cadastrar" onPress={handleSubmit(onSubmit)} />
 
         <Text
           className="text-sm"
-          onPress={() => router.replace('/(auth)/signUp')}
+          onPress={() => router.replace('/(auth)/login')}
         >
           <Text className="font-inter text-neutral-600 dark:text-neutral-400">
-            Não tem uma conta?
+            Já tem uma conta?
           </Text>
 
-          <Text className="font-inter_bold text-primary-500"> Cadastre-se</Text>
+          <Text className="font-inter_bold text-primary-500"> Entrar</Text>
         </Text>
       </View>
     </DefaultContainer>
   );
 };
 
-export default Login;
+export default SignUp;
