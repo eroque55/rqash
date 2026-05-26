@@ -1,4 +1,5 @@
 import Constants from 'expo-constants';
+import { useRouter } from 'expo-router';
 import { Text, View } from 'react-native';
 
 import ProfileItem from '@/components/pages/main/profile/ProfileItem';
@@ -6,10 +7,26 @@ import { DefaultContainer, Icon, Pressable, Switch } from '@/components/ui';
 import Divider from '@/components/ui/Divider';
 import { useAuth } from '@/contexts/useAuth';
 import { useTheme } from '@/hooks/common/useTheme';
+import { useDefaultModal } from '@/store/defaultModalStore';
 
 const Profile = () => {
-  const { user } = useAuth();
+  const router = useRouter();
+  const { user, logout } = useAuth();
   const { toggleTheme, isDark } = useTheme();
+  const { openModal } = useDefaultModal();
+
+  const handleLogout = () => {
+    openModal({
+      title: 'Sair',
+      message: 'Tem certeza que deseja sair da sua conta?',
+      confirmText: 'Sair',
+      cancelText: 'Cancelar',
+      onConfirm: () => {
+        logout();
+        router.replace('/(auth)/login');
+      },
+    });
+  };
 
   return (
     <DefaultContainer showTabBar contentContainerClassName="px-5 py-10 gap-5">
@@ -74,6 +91,7 @@ const Profile = () => {
           description="Encerrar sessão"
           icon="LogOutIcon"
           title="Sair"
+          onPress={handleLogout}
         />
       </View>
 

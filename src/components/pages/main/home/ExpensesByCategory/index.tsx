@@ -1,5 +1,5 @@
-import { FlashList } from '@shopify/flash-list';
-import { Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { mockExpensesByCategory } from '@/assets/mock/expensesByCategory';
 
@@ -8,7 +8,10 @@ import ExpensesByCategoryIndicator from './ExpensesByCategoryIndicator';
 
 const ExpensesByCategory = () => {
   return (
-    <View className="w-full gap-5 rounded-[20px] bg-white p-5 dark:bg-neutral-800">
+    <Animated.View
+      className="w-full gap-5 rounded-[20px] bg-white p-5 dark:bg-neutral-800"
+      entering={FadeIn}
+    >
       <Text className="font-inter_semiBold text-sm text-neutral-800 dark:text-neutral-200">
         Gastos por categoria
       </Text>
@@ -16,10 +19,9 @@ const ExpensesByCategory = () => {
       <View className="flex-row items-center gap-5">
         <ExpensesByCategoryChart data={mockExpensesByCategory} />
 
-        <FlashList
-          contentContainerStyle={{ gap: 8 }}
+        <FlatList
+          contentContainerClassName="gap-2"
           data={mockExpensesByCategory}
-          ItemSeparatorComponent={() => <View className="h-2" />}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
             <ExpensesByCategoryIndicator
@@ -31,7 +33,7 @@ const ExpensesByCategory = () => {
           scrollEnabled={false}
         />
       </View>
-    </View>
+    </Animated.View>
   );
 };
 

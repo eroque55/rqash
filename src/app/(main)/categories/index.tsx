@@ -2,8 +2,11 @@ import { Text, View } from 'react-native';
 
 import ExpenseCategoriesList from '@/components/pages/main/categories/ExpenseCategoriesList';
 import { DefaultContainer } from '@/components/ui';
+import { useProgressiveLoading } from '@/hooks/common/useProgressiveLoading';
 
 const Categories = () => {
+  const [rdCategoriesList] = useProgressiveLoading([100]);
+
   return (
     <DefaultContainer showTabBar contentContainerClassName="px-5 py-10 gap-5">
       <View className="w-full gap-2">
@@ -16,7 +19,7 @@ const Categories = () => {
         </Text>
       </View>
 
-      <ExpenseCategoriesList />
+      {rdCategoriesList && <ExpenseCategoriesList />}
     </DefaultContainer>
   );
 };

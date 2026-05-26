@@ -1,4 +1,5 @@
 import { Text, View } from 'react-native';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { Icon } from '@/components/ui';
 import { TExpenseCategory } from '@/types/category';
@@ -6,11 +7,15 @@ import { formatCurrency } from '@/utils/format';
 
 type Props = {
   expenseCategory: TExpenseCategory;
+  index: number;
 };
 
-const ExpenseCategoriesListItem = ({ expenseCategory }: Props) => {
+const ExpenseCategoriesListItem = ({ expenseCategory, index }: Props) => {
   return (
-    <View className="flex-row items-center gap-6 rounded-[20px] bg-white p-4 dark:bg-neutral-800">
+    <Animated.View
+      className="flex-row items-center gap-6 rounded-[20px] bg-white p-4 dark:bg-neutral-800"
+      entering={FadeIn.delay(index * 100)}
+    >
       <Icon
         color={expenseCategory.category.color}
         name={expenseCategory.category.icon}
@@ -32,7 +37,7 @@ const ExpenseCategoriesListItem = ({ expenseCategory }: Props) => {
           style={{ width: `${expenseCategory.percentage}%` }}
         />
       </View>
-    </View>
+    </Animated.View>
   );
 };
 

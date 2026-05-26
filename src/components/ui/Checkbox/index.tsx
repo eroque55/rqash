@@ -24,7 +24,7 @@ const Checkbox = ({ isSelected = false, disabled = false, onPress }: Props) => {
   const { isDark } = useTheme();
 
   const activeValue = useSharedValue(isSelected ? 1 : 0);
-  const inactiveBackgroundColor = isDark ? colors.neutral[600] : colors.white;
+  const inactiveBackgroundColor = isDark ? colors.neutral[800] : colors.white;
 
   const containerStyle = useAnimatedStyle(() => {
     const backgroundColor = interpolateColor(

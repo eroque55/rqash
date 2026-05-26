@@ -4,10 +4,12 @@ import { Text, View } from 'react-native';
 import TransactionList from '@/components/pages/main/transactions/TransactionsList';
 import { DefaultContainer } from '@/components/ui';
 import Tab from '@/components/ui/Tab';
+import { useProgressiveLoading } from '@/hooks/common/useProgressiveLoading';
 
 export type TTransactionPage = 'all' | 'income' | 'expenses';
 
 const Transactions = () => {
+  const [rdTransactionList] = useProgressiveLoading([200]);
   const [page, setPage] = useState<TTransactionPage>('all');
 
   const handleTabPress = (selectedPage: TTransactionPage) => {
@@ -40,7 +42,7 @@ const Transactions = () => {
         />
       </View>
 
-      <TransactionList page={page} />
+      {rdTransactionList && <TransactionList page={page} />}
     </DefaultContainer>
   );
 };

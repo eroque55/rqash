@@ -4,8 +4,13 @@ import ExpensesByCategory from '@/components/pages/main/home/ExpensesByCategory'
 import HomeSummary from '@/components/pages/main/home/HomeSummary';
 import LastTransactions from '@/components/pages/main/home/LastTransactions';
 import { DefaultContainer } from '@/components/ui';
+import { useProgressiveLoading } from '@/hooks/common/useProgressiveLoading';
 
 const Home = () => {
+  const [rdSummary, rdExpenses, rdTransactions] = useProgressiveLoading([
+    200, 400, 600,
+  ]);
+
   return (
     <DefaultContainer showTabBar contentContainerClassName="px-5 py-10 gap-8">
       <View className="gap-1">
@@ -18,11 +23,11 @@ const Home = () => {
         </Text>
       </View>
 
-      <HomeSummary />
+      {rdSummary && <HomeSummary />}
 
-      <ExpensesByCategory />
+      {rdExpenses && <ExpensesByCategory />}
 
-      <LastTransactions />
+      {rdTransactions && <LastTransactions />}
     </DefaultContainer>
   );
 };

@@ -97,9 +97,7 @@ const Button = ({
         {text}
       </Text>
 
-      {(isLoading || loading) && (
-        <ButtonActivityIndicator isLoading={isLoading || loading} />
-      )}
+      <ButtonActivityIndicator isLoading={isLoading || loading} />
     </AnimatedPressable>
   );
 };

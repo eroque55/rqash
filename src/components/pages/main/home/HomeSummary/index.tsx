@@ -1,4 +1,5 @@
 import { Text, View } from 'react-native';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { formatCurrency } from '@/utils/format';
 
@@ -6,7 +7,10 @@ import HomeSummaryIndicator from './HomeSummaryIndicator';
 
 const HomeSummary = () => {
   return (
-    <View className="bg-primary-500 w-full gap-5 rounded-[20px] p-5">
+    <Animated.View
+      className="bg-primary-500 w-full gap-5 rounded-[20px] p-5"
+      entering={FadeIn}
+    >
       <Text className="font-inter_medium text-base text-neutral-300">
         Saldo total
       </Text>
@@ -24,7 +28,7 @@ const HomeSummary = () => {
 
         <HomeSummaryIndicator title="Despesas" value={1234.56} />
       </View>
-    </View>
+    </Animated.View>
   );
 };
 

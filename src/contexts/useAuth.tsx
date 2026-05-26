@@ -17,7 +17,7 @@ import { LoginForm } from '@/validation/login.validation';
 
 type ContextValues = {
   user: TUser | null;
-  logout: (isDelete?: boolean) => void;
+  logout: () => void;
   login: (user: LoginForm) => Promise<void>;
   isLoading: boolean;
 };

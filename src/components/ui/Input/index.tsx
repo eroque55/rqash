@@ -115,7 +115,7 @@ const Input = <TFieldValues extends FieldValues>({
 
   return (
     <Animated.View
-      className="h-auto flex-grow gap-1"
+      className="grow gap-1"
       layout={LinearTransition}
       {...containerProps}
     >

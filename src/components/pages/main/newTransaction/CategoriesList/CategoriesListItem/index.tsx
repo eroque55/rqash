@@ -2,6 +2,7 @@ import { Text, View } from 'react-native';
 
 import { Icon, Pressable } from '@/components/ui';
 import { colors } from '@/global/colors';
+import { useDimensions } from '@/hooks/common';
 import { TCategory } from '@/types/category';
 
 type Props = {
@@ -15,10 +16,15 @@ const CategoriesListItem = ({
   onPress,
   isSelected = false,
 }: Props) => {
+  const { safeWidth } = useDimensions();
+
+  const width = (safeWidth - 20 - 12 - 12 - 20) / 3;
+
   return (
     <Pressable
-      className="mx-1.5 grow overflow-hidden rounded-[20px] bg-white dark:bg-neutral-800"
+      className="grow overflow-hidden rounded-[20px] bg-white dark:bg-neutral-800"
       disabled={isSelected}
+      style={{ width, maxWidth: width }}
       onPress={onPress}
     >
       <View

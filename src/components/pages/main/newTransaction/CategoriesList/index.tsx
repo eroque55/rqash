@@ -1,10 +1,9 @@
-import { FlashList } from '@shopify/flash-list';
 import {
   FieldValues,
   useController,
   UseControllerProps,
 } from 'react-hook-form';
-import { View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import { mockCategories } from '@/assets/mock/transactions';
@@ -25,10 +24,10 @@ const CategoriesList = <TFieldValues extends FieldValues>({
 
   return (
     <View className="gap-2">
-      <FlashList
-        contentContainerClassName="-mx-1.5"
+      <FlatList
+        columnWrapperClassName="justify-between"
+        contentContainerClassName="gap-3"
         data={mockCategories}
-        ItemSeparatorComponent={() => <View className="h-3" />}
         keyExtractor={item => item.id}
         numColumns={3}
         renderItem={({ item }) => (

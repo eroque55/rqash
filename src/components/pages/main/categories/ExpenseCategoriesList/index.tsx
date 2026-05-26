@@ -1,5 +1,4 @@
-import { FlashList } from '@shopify/flash-list';
-import { View } from 'react-native';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { mockExpenseCategories } from '@/assets/mock/expenseCategories';
 
@@ -7,12 +6,13 @@ import ExpenseCategoriesListItem from './ExpenseCategoriesListItem';
 
 const ExpenseCategoriesList = () => {
   return (
-    <FlashList
+    <Animated.FlatList
+      contentContainerClassName="gap-3"
       data={mockExpenseCategories}
-      ItemSeparatorComponent={() => <View className="h-3" />}
+      entering={FadeIn}
       keyExtractor={item => item.id}
-      renderItem={({ item }) => (
-        <ExpenseCategoriesListItem expenseCategory={item} />
+      renderItem={({ item, index }) => (
+        <ExpenseCategoriesListItem expenseCategory={item} index={index} />
       )}
       scrollEnabled={false}
     />

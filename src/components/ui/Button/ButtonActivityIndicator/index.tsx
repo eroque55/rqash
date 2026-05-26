@@ -4,10 +4,10 @@ import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { colors } from '@/global/colors';
 
 type Props = {
-  isLoading: boolean;
+  isLoading?: boolean;
 };
 
-const ButtonActivityIndicator = ({ isLoading }: Props) => {
+const ButtonActivityIndicator = ({ isLoading = false }: Props) => {
   if (!isLoading) {
     return null;
   }
