@@ -16,12 +16,19 @@ const SignUp = () => {
 
   const { control, handleSubmit } = useForm<SignUpForm>({
     resolver: zodResolver(SignUpSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    },
+    defaultValues: __DEV__
+      ? {
+          name: 'Eduardo Roque',
+          email: 'edurss1000@gmail.com',
+          password: 'Aa12345@',
+          confirmPassword: 'Aa12345@',
+        }
+      : {
+          name: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+        },
   });
 
   const onSubmit = async (form: SignUpForm) => {

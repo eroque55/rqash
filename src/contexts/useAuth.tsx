@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 
-import { useLogin } from '@/hooks/api/useAuthApi';
+import { useFetchUser, useLogin } from '@/hooks/api/useAuthApi';
 import { TUser } from '@/types/user';
 import { storage } from '@/utils/storage';
 import { supabase } from '@/utils/supabase';
@@ -20,6 +20,7 @@ type ContextValues = {
   logout: () => Promise<void>;
   login: (user: LoginForm) => Promise<void>;
   isLoading: boolean;
+  fetchUser: () => Promise<void>;
 };
 
 const AuthContext = createContext({} as ContextValues);
@@ -32,12 +33,23 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const { mutateAsync: loginService } = useLogin();
+  const { mutateAsync: fetchUserService } = useFetchUser();
 
   const logout = async () => {
     setUser(null);
     storage.clearAll();
     queryClient.clear();
     await supabase.auth.signOut();
+  };
+
+  const fetchUser = async () => {
+    try {
+      const userData = await fetchUserService();
+
+      setUser(userData);
+    } catch {
+      await logout();
+    }
   };
 
   const login = async (form: LoginForm) => {
@@ -50,6 +62,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         storage.set('refreshToken', data.session.refresh_token);
       }
 
+      await fetchUser();
       router.replace('/(main)/home');
     } catch {
       await logout();
@@ -57,17 +70,28 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   useEffect(() => {
-    const email = storage.getString('email');
+    const restoreSession = async () => {
+      const access_token = storage.getString('accessToken');
+      const refresh_token = storage.getString('refreshToken');
 
-    if (email) {
-      setUser({
-        id: '1',
-        email,
-      });
-    }
+      if (access_token && refresh_token) {
+        const { error } = await supabase.auth.setSession({
+          access_token,
+          refresh_token,
+        });
 
-    SplashScreen.hideAsync();
-    setIsLoading(false);
+        if (error) {
+          await logout();
+          return;
+        }
+      }
+
+      await fetchUser();
+      await SplashScreen.hideAsync();
+      setIsLoading(false);
+    };
+
+    restoreSession();
   }, []);
 
   return (
@@ -77,6 +101,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         logout,
         login,
         isLoading,
+        fetchUser,
       }}
     >
       {children}

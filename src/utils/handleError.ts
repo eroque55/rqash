@@ -1,12 +1,6 @@
-/* eslint-disable no-console */
 import { AuthError, PostgrestError } from '@supabase/supabase-js';
 
-const handleCustomErrors = (error: AuthError | PostgrestError): string => {
-  const { message } = error;
-
-  console.log('----------------------message----------------------');
-  console.log(JSON.stringify(message, null, 2));
-  console.log('----------------------message----------------------');
+const handleCustomErrors = (message: string): string => {
   if (message.includes('Invalid login credentials')) {
     return 'Credenciais de login inválidas';
   }
@@ -17,17 +11,21 @@ const handleCustomErrors = (error: AuthError | PostgrestError): string => {
 export const handleError = (
   error: AuthError | PostgrestError | string | Error | unknown,
 ): string => {
-  if (error instanceof AuthError || error instanceof PostgrestError) {
-    return handleCustomErrors(error);
-  }
+  console.log('----------------------error----------------------');
+  console.log(JSON.stringify(error, null, 2));
+  console.log('----------------------error----------------------');
 
-  if (error instanceof Error) {
-    return error.message;
-  }
+  let errorMessage = 'Houve um imprevisto, tente novamente mais tarde';
 
   if (typeof error === 'string') {
-    return error;
+    errorMessage = error;
   }
 
-  return 'Houve um imprevisto, tente novamente mais tarde';
+  const { message } = error as { message?: string };
+
+  if (message) {
+    errorMessage = message;
+  }
+
+  return handleCustomErrors(errorMessage);
 };

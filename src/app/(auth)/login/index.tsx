@@ -21,11 +21,17 @@ const Login = () => {
 
   const { control, handleSubmit } = useForm<LoginForm>({
     resolver: zodResolver(LoginSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-      requestRefresh: false,
-    },
+    defaultValues: __DEV__
+      ? {
+          email: 'edurss1000@gmail.com',
+          password: 'Aa12345@',
+          requestRefresh: false,
+        }
+      : {
+          email: '',
+          password: '',
+          requestRefresh: false,
+        },
   });
 
   return (

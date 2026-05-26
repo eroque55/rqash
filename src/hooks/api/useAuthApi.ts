@@ -19,3 +19,9 @@ export const useCreateUser = () => {
     mutationFn: authService.createUser,
   });
 };
+
+export const useFetchUser = () => {
+  return useMutation({
+    mutationFn: authService.fetchUser,
+  });
+};

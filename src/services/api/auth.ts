@@ -1,3 +1,4 @@
+import { TUser } from '@/types/user';
 import { supabase } from '@/utils/supabase';
 import { LoginForm } from '@/validation/login.validation';
 import { SignUpForm } from '@/validation/signUp.validation';
@@ -25,11 +26,15 @@ export const authService = {
   },
 
   createUser: async (form: SignUpForm) => {
-    const { data: createUserData, error: createUserError } =
-      await supabase.auth.signUp({
-        email: form.email,
-        password: form.password,
-      });
+    const { error: createUserError } = await supabase.auth.signUp({
+      email: form.email,
+      password: form.password,
+      options: {
+        data: {
+          name: form.name,
+        },
+      },
+    });
 
     if (createUserError) {
       throw createUserError;
@@ -40,16 +45,24 @@ export const authService = {
       password: form.password,
       requestRefresh: false,
     });
+  },
 
-    const { error: createClientError } = await supabase.from('clients').insert({
-      user_id: createUserData.user?.id,
-      name: form.name,
-    });
+  fetchUser: async (): Promise<TUser> => {
+    const { data: clientData, error: clientError } = await supabase
+      .from('profiles')
+      .select()
+      .single();
 
-    if (createClientError) {
-      await supabase.auth.admin.deleteUser(createUserData.user?.id || '');
-      await authService.logout();
-      throw createClientError;
+    if (clientError) {
+      throw clientError;
     }
+
+    return {
+      id: clientData.id,
+      name: clientData.name,
+      email: clientData.email,
+      avatarUrl: clientData.avatar_url,
+      createdAt: clientData.created_at,
+    };
   },
 };

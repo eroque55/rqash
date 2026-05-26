@@ -33,6 +33,7 @@ export default z;
 
 export const password = z
   .string()
+  .trim()
   .min(8, 'A senha deve ter pelo menos 8 caracteres')
   .regex(/[A-Z]/, 'A senha deve conter pelo menos 1 letra maiúscula')
   .regex(/[a-z]/, 'A senha deve conter pelo menos 1 letra minúscula')

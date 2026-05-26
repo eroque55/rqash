@@ -1,9 +1,7 @@
 export type TUser = {
   id: string;
+  name: string;
   email: string;
-};
-
-export type TLoginResponse = {
-  jwt: string;
-  user: TUser;
+  avatarUrl?: string;
+  createdAt: Date;
 };

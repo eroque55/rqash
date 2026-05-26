@@ -2,10 +2,10 @@ import z, { password } from './zod';
 
 export const SignUpSchema = z
   .object({
-    name: z.string().min(1),
-    email: z.email(),
+    name: z.string().trim().min(1),
+    email: z.email().toLowerCase(),
     password,
-    confirmPassword: z.string().min(1),
+    confirmPassword: z.string().trim().min(1),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: 'As senhas não coincidem',
