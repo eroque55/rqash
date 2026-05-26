@@ -6,6 +6,7 @@ import Animated, { LinearTransition } from 'react-native-reanimated';
 
 import { LoginImg } from '@/assets/images';
 import { Button, DefaultContainer, Image, Input } from '@/components/ui';
+import { useAuth } from '@/contexts/useAuth';
 import { useCreateUser } from '@/hooks/api/useAuthApi';
 import { SignUpForm, SignUpSchema } from '@/validation/signUp.validation';
 
@@ -13,6 +14,7 @@ const SignUp = () => {
   const router = useRouter();
 
   const { mutateAsync } = useCreateUser();
+  const { fetchUser } = useAuth();
 
   const { control, handleSubmit } = useForm<SignUpForm>({
     resolver: zodResolver(SignUpSchema),
@@ -33,6 +35,7 @@ const SignUp = () => {
 
   const onSubmit = async (form: SignUpForm) => {
     await mutateAsync(form);
+    await fetchUser();
 
     router.replace('/(main)/home');
   };
