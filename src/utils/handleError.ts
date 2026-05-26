@@ -5,6 +5,10 @@ const handleCustomErrors = (message: string): string => {
     return 'Credenciais de login inválidas';
   }
 
+  if (message.includes('User already registered')) {
+    return 'E-mail já cadastrado';
+  }
+
   return message;
 };
 

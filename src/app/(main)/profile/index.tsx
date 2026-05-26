@@ -3,7 +3,13 @@ import { useRouter } from 'expo-router';
 import { Text, View } from 'react-native';
 
 import ProfileItem from '@/components/pages/main/profile/ProfileItem';
-import { DefaultContainer, Icon, Pressable, Switch } from '@/components/ui';
+import {
+  DefaultContainer,
+  Icon,
+  Image,
+  Pressable,
+  Switch,
+} from '@/components/ui';
 import Divider from '@/components/ui/Divider';
 import { useAuth } from '@/contexts/useAuth';
 import { useTheme } from '@/hooks/common/useTheme';
@@ -35,13 +41,19 @@ const Profile = () => {
       </Text>
 
       <View className="flex-row items-center gap-3 rounded-[20px] bg-white p-5 dark:bg-neutral-800">
-        <View className="bg-primary-500 size-14 items-center justify-center rounded-full">
-          <Text className="font-inter_bold text-xl text-white">R</Text>
-        </View>
+        {user?.avatarUrl ? (
+          <Image className="size-14 rounded-full" source={user.avatarUrl} />
+        ) : (
+          <View className="bg-primary-500 size-14 items-center justify-center rounded-full">
+            <Text className="font-inter_bold text-xl text-white">
+              {user?.name.charAt(0)}
+            </Text>
+          </View>
+        )}
 
         <View className="gap-1">
           <Text className="font-inter_medium text-base text-neutral-800 dark:text-neutral-200">
-            Roque
+            {user?.name}
           </Text>
 
           <Text className="font-inter text-sm text-neutral-500 dark:text-neutral-400">

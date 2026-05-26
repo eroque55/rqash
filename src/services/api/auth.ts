@@ -47,7 +47,12 @@ export const authService = {
     });
   },
 
-  fetchUser: async (): Promise<TUser> => {
+  fetchUser: async (): Promise<TUser | null> => {
+    const { data: sessionData } = await supabase.auth.getSession();
+    if (!sessionData.session) {
+      return null;
+    }
+
     const { data: clientData, error: clientError } = await supabase
       .from('profiles')
       .select()

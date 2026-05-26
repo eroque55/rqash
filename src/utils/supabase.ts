@@ -19,7 +19,7 @@ export const supabase = createClient(
         },
       },
       autoRefreshToken: true,
-      persistSession: true,
+      persistSession: false,
       detectSessionInUrl: false,
     },
   },
