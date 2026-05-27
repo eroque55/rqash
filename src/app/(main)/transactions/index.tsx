@@ -5,19 +5,21 @@ import TransactionList from '@/components/pages/main/transactions/TransactionsLi
 import { DefaultContainer } from '@/components/ui';
 import Tab from '@/components/ui/Tab';
 import { useProgressiveLoading } from '@/hooks/common/useProgressiveLoading';
-
-export type TTransactionPage = 'all' | 'income' | 'expenses';
+import { TTransactionsFilter } from '@/types/transaction';
 
 const Transactions = () => {
   const [rdTransactionList] = useProgressiveLoading([200]);
-  const [page, setPage] = useState<TTransactionPage>('all');
+  const [page, setPage] = useState<TTransactionsFilter>('all');
 
-  const handleTabPress = (selectedPage: TTransactionPage) => {
+  const handleTabPress = (selectedPage: TTransactionsFilter) => {
     setPage(selectedPage);
   };
 
   return (
-    <DefaultContainer showTabBar contentContainerClassName="px-5 py-10 gap-5">
+    <DefaultContainer
+      showTabBar
+      contentContainerClassName="px-5 py-10 gap-5 grow"
+    >
       <Text className="font-inter_semiBold text-xl text-neutral-800 dark:text-neutral-200">
         Transações
       </Text>
@@ -36,9 +38,9 @@ const Transactions = () => {
         />
 
         <Tab
-          isActive={page === 'expenses'}
+          isActive={page === 'expense'}
           text="Despesas"
-          onPress={() => handleTabPress('expenses')}
+          onPress={() => handleTabPress('expense')}
         />
       </View>
 

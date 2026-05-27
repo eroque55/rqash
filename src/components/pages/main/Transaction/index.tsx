@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { Text, View } from 'react-native';
+import { SvgFromUri } from 'react-native-svg';
 
-import { Icon } from '@/components/ui';
 import { colors } from '@/global/colors';
 import { TTransaction } from '@/types/transaction';
 import { formatCurrency } from '@/utils/format';
@@ -11,13 +11,16 @@ type Props = {
 };
 
 const Transaction = ({ transaction }: Props) => {
-  const isPositive = transaction.amount > 0;
+  const isIncome = transaction.type === 'income';
 
   return (
     <View className="flex-row items-center gap-6 p-3">
-      <Icon
+      <SvgFromUri
         color={transaction.category.colorHex}
-        name={transaction.category.icon}
+        height={20}
+        strokeWidth={1.5}
+        uri={transaction.category.iconUrl}
+        width={20}
       />
 
       <View className="grow gap-1">
@@ -25,7 +28,7 @@ const Transaction = ({ transaction }: Props) => {
           className="font-inter text-sm text-neutral-800 dark:text-neutral-200"
           numberOfLines={1}
         >
-          {transaction.name}
+          {transaction.description}
         </Text>
 
         <Text className="font-inter text-xs text-neutral-500 dark:text-neutral-400">
@@ -36,10 +39,10 @@ const Transaction = ({ transaction }: Props) => {
       <Text
         className="font-inter_semiBold grow text-right text-sm"
         style={{
-          color: isPositive ? colors.alert.success : colors.alert.error,
+          color: isIncome ? colors.alert.success : colors.alert.error,
         }}
       >
-        {`${isPositive ? '+' : '-'} ${formatCurrency(transaction.amount, true)}`}
+        {`${isIncome ? '+' : '-'} ${formatCurrency(transaction.amount, true)}`}
       </Text>
     </View>
   );

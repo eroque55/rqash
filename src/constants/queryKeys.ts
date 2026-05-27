@@ -1,7 +1,14 @@
+import { TTransactionsFilter } from '@/types/transaction';
+
 export const queryKeys = {
   categories: {
     all: ['categories'] as const,
     list: () => [...queryKeys.categories.all, 'list'] as const,
+  },
+  transactions: {
+    all: ['transactions'] as const,
+    list: (type: TTransactionsFilter) =>
+      [...queryKeys.transactions.all, 'list', type] as const,
   },
 } as const;
 

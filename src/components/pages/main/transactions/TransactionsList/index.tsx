@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
-import { TTransactionPage } from '@/app/(main)/transactions';
-import { mockTransactions } from '@/assets/mock/transactions';
+import { EmptyComponent } from '@/components/ui';
 import Divider from '@/components/ui/Divider';
 import { colors } from '@/global/colors';
+import { useTransactions } from '@/hooks/api/useTransactionApi';
 import { useTheme } from '@/hooks/common/useTheme';
+import { TTransactionsFilter } from '@/types/transaction';
 
 import Transaction from '../../Transaction';
 
@@ -17,37 +18,31 @@ export const styles = StyleSheet.create({
 });
 
 type Props = {
-  page: TTransactionPage;
+  page: TTransactionsFilter;
 };
 
 const TransactionList = ({ page }: Props) => {
   const { isDark } = useTheme();
 
-  const getData = () => {
-    if (page === 'income') {
-      return mockTransactions.filter(transaction => transaction.amount > 0);
-    }
+  const { data } = useTransactions(page);
 
-    if (page === 'expenses') {
-      return mockTransactions.filter(transaction => transaction.amount < 0);
-    }
-
-    return mockTransactions;
-  };
+  if (!data || data.length === 0) {
+    return <EmptyComponent />;
+  }
 
   return (
     <Animated.FlatList
       key={page}
-      data={getData()}
+      contentContainerStyle={[
+        styles.list,
+        { backgroundColor: isDark ? colors.neutral[800] : colors.white },
+      ]}
+      data={data}
       entering={FadeIn}
       exiting={FadeOut}
       ItemSeparatorComponent={() => <Divider />}
       renderItem={({ item }) => <Transaction transaction={item} />}
       scrollEnabled={false}
-      style={[
-        styles.list,
-        { backgroundColor: isDark ? colors.neutral[800] : colors.white },
-      ]}
     />
   );
 };

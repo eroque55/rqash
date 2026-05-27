@@ -39,6 +39,7 @@ const CategoriesList = <TFieldValues extends FieldValues>({
             onPress={() => field.onChange(item.id)}
           />
         )}
+        scrollEnabled={false}
       />
 
       {error?.message && (

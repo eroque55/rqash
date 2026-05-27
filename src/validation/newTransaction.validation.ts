@@ -10,7 +10,7 @@ export const NewTransactionSchema = z.object({
   }, 'Valor deve ser um número positivo.'),
   description: z.string().min(1),
   date: z.string().min(1).refine(validateDate, 'Data inválida.'),
-  category: z.string().min(1),
+  category: z.uuid().min(1),
 });
 
 export type NewTransactionForm = z.infer<typeof NewTransactionSchema>;
