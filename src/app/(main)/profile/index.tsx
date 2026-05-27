@@ -1,8 +1,10 @@
 import Constants from 'expo-constants';
 import { useRouter } from 'expo-router';
-import { Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 
-import ProfileItem from '@/components/pages/main/profile/ProfileItem';
+import ProfileItem, {
+  ProfileItemProps,
+} from '@/components/pages/main/profile/ProfileItem';
 import {
   DefaultContainer,
   Icon,
@@ -33,6 +35,32 @@ const Profile = () => {
       },
     });
   };
+
+  const options: ProfileItemProps[] = [
+    {
+      title: 'Perfil',
+      description: 'Editar informações pessoais',
+      icon: 'UserIcon',
+      onPress: () => router.push('/(main)/profile/editProfile'),
+    },
+    {
+      title: 'Segurança',
+      description: 'Senha e autenticação',
+      icon: 'ShieldIcon',
+    },
+    {
+      title: 'Ajuda',
+      description: 'Central de suporte',
+      icon: 'QuestionMarkIcon',
+    },
+    {
+      title: 'Sair',
+      description: 'Encerrar sessão',
+      icon: 'LogOutIcon',
+      isLogOut: true,
+      onPress: handleLogout,
+    },
+  ];
 
   return (
     <DefaultContainer showTabBar contentContainerClassName="px-5 py-10 gap-5">
@@ -81,31 +109,14 @@ const Profile = () => {
         <Switch isActive={isDark} onChange={toggleTheme} />
       </Pressable>
 
-      <View className="overflow-hidden rounded-[20px] bg-white dark:bg-neutral-800">
-        <ProfileItem
-          description="Senha e autenticação"
-          icon="ShieldIcon"
-          title="Segurança"
-        />
-
-        <Divider />
-
-        <ProfileItem
-          description="Central de suporte"
-          icon="QuestionMarkIcon"
-          title="Ajuda"
-        />
-
-        <Divider />
-
-        <ProfileItem
-          isLogOut
-          description="Encerrar sessão"
-          icon="LogOutIcon"
-          title="Sair"
-          onPress={handleLogout}
-        />
-      </View>
+      <FlatList
+        className="overflow-hidden rounded-[20px] bg-white dark:bg-neutral-800"
+        data={options}
+        ItemSeparatorComponent={() => <Divider />}
+        keyExtractor={item => item.title}
+        renderItem={({ item }) => <ProfileItem {...item} />}
+        scrollEnabled={false}
+      />
 
       <Text className="font-inter self-center text-xs text-neutral-500 dark:text-neutral-400">
         {`v${Constants.expoConfig?.version}`}

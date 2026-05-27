@@ -1,10 +1,8 @@
-import { TIcon } from '@/components/ui/Icon';
-
 export type TCategory = {
   id: string;
   name: string;
-  color: string;
-  icon: TIcon;
+  colorHex: string;
+  iconUrl: string;
 };
 
 export type TExpenseCategory = {

@@ -6,7 +6,7 @@ import {
 import { FlatList, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
-import { mockCategories } from '@/assets/mock/transactions';
+import { useListCategories } from '@/hooks/api/useCategoryApi';
 
 import CategoriesListItem from './CategoriesListItem';
 
@@ -14,6 +14,8 @@ const CategoriesList = <TFieldValues extends FieldValues>({
   control,
   name,
 }: UseControllerProps<TFieldValues>) => {
+  const { data } = useListCategories();
+
   const {
     field,
     fieldState: { error },
@@ -27,7 +29,7 @@ const CategoriesList = <TFieldValues extends FieldValues>({
       <FlatList
         columnWrapperClassName="justify-between"
         contentContainerClassName="gap-3"
-        data={mockCategories}
+        data={data}
         keyExtractor={item => item.id}
         numColumns={3}
         renderItem={({ item }) => (

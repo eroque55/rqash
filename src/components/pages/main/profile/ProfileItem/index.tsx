@@ -5,7 +5,7 @@ import { TIcon } from '@/components/ui/Icon';
 import { colors } from '@/global/colors';
 import { useTheme } from '@/hooks/common/useTheme';
 
-type Props = {
+export type ProfileItemProps = {
   icon: TIcon;
   title: string;
   description: string;
@@ -19,7 +19,7 @@ const ProfileItem = ({
   description,
   onPress,
   isLogOut = false,
-}: Props) => {
+}: ProfileItemProps) => {
   const { isDark } = useTheme();
 
   const getIconColor = () => {

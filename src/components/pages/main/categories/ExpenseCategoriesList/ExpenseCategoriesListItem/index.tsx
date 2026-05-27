@@ -17,7 +17,7 @@ const ExpenseCategoriesListItem = ({ expenseCategory, index }: Props) => {
       entering={FadeIn.delay(index * 100)}
     >
       <Icon
-        color={expenseCategory.category.color}
+        color={expenseCategory.category.colorHex}
         name={expenseCategory.category.icon}
       />
 

@@ -39,3 +39,9 @@ export const password = z
   .regex(/[a-z]/, 'A senha deve conter pelo menos 1 letra minúscula')
   .regex(/[0-9]/, 'A senha deve conter pelo menos 1 número')
   .regex(/[^A-Za-z0-9]/, 'A senha deve conter pelo menos 1 caractere especial');
+
+export const file = z.object({
+  uri: z.string(),
+  name: z.string(),
+  type: z.string(),
+});

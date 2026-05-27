@@ -16,7 +16,7 @@ const Transaction = ({ transaction }: Props) => {
   return (
     <View className="flex-row items-center gap-6 p-3">
       <Icon
-        color={transaction.category.color}
+        color={transaction.category.colorHex}
         name={transaction.category.icon}
       />
 

@@ -5,25 +5,25 @@ export const mockCategories: TCategory[] = [
   {
     id: '1',
     name: 'Comida',
-    color: '#4f46e5',
+    colorHex: '#4f46e5',
     icon: 'GridIcon',
   },
   {
     id: '2',
     name: 'Transporte',
-    color: '#3b82f6',
+    colorHex: '#3b82f6',
     icon: 'GridIcon',
   },
   {
     id: '3',
     name: 'Entretenimento',
-    color: '#f59e0b',
+    colorHex: '#f59e0b',
     icon: 'GridIcon',
   },
   {
     id: '4',
     name: 'Saúde',
-    color: '#10b981',
+    colorHex: '#10b981',
     icon: 'GridIcon',
   },
 ];

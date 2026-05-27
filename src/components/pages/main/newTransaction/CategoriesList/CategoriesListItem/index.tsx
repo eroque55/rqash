@@ -1,6 +1,7 @@
 import { Text, View } from 'react-native';
+import { SvgFromUri } from 'react-native-svg';
 
-import { Icon, Pressable } from '@/components/ui';
+import { Pressable } from '@/components/ui';
 import { colors } from '@/global/colors';
 import { useDimensions } from '@/hooks/common';
 import { TCategory } from '@/types/category';
@@ -41,7 +42,13 @@ const CategoriesListItem = ({
               }
         }
       >
-        <Icon color={category.color} name={category.icon} />
+        <SvgFromUri
+          color={category.colorHex}
+          height={24}
+          strokeWidth={1.5}
+          uri={category.iconUrl}
+          width={24}
+        />
 
         <Text className="font-inter text-center text-xs text-neutral-800 dark:text-neutral-200">
           {category.name}

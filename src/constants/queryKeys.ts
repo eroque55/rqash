@@ -1,6 +1,7 @@
 export const queryKeys = {
-  me: {
-    profile: () => ['me', 'profile'] as const,
+  categories: {
+    all: ['categories'] as const,
+    list: () => [...queryKeys.categories.all, 'list'] as const,
   },
 } as const;
 
