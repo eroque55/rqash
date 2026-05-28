@@ -1,13 +1,13 @@
 import { FlatList, Text } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
-import { mockTransactions } from '@/assets/mock/transactions';
 import Divider from '@/components/ui/Divider';
+import { useTransactions } from '@/hooks/api/useTransactionApi';
 
 import Transaction from '../../Transaction';
 
 const LastTransactions = () => {
-  const data = mockTransactions.slice(0, 3);
+  const { data } = useTransactions('all', 3);
 
   return (
     <Animated.View

@@ -6,7 +6,6 @@ export type TCategory = {
 };
 
 export type TExpenseCategory = {
-  id: string;
   category: TCategory;
   ammount: number;
   percentage: number;

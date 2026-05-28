@@ -78,7 +78,8 @@
     "lint": "expo lint",
     "format": "prettier . --write",
     "typecheck": "tsc --noEmit",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "genDbTypes": "npx supabase gen types typescript \\ --project-id gdrlilrsmzsbeyrlfbud \\ > src/types/database.types.ts"
   },
   "private": true,
   "resolutions": {

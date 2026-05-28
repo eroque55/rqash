@@ -8,190 +8,118 @@ export type Json =
 
 export type Database = {
   // Allows to automatically instantiate createClient with right options
-
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
-
   __InternalSupabase: {
     PostgrestVersion: '14.5';
   };
-
   public: {
     Tables: {
       categories: {
         Row: {
           color_hex: string;
-
           created_at: string;
-
           icon_url: string;
-
           id: string;
-
           name: string;
         };
-
         Insert: {
           color_hex: string;
-
           created_at?: string;
-
           icon_url: string;
-
           id?: string;
-
           name: string;
         };
-
         Update: {
           color_hex?: string;
-
           created_at?: string;
-
           icon_url?: string;
-
           id?: string;
-
           name?: string;
         };
-
         Relationships: [];
       };
-
       profiles: {
         Row: {
           avatar_url: string | null;
-
           created_at: string;
-
           email: string;
-
           id: string;
-
           name: string;
         };
-
         Insert: {
           avatar_url?: string | null;
-
           created_at?: string;
-
           email: string;
-
           id?: string;
-
           name: string;
         };
-
         Update: {
           avatar_url?: string | null;
-
           created_at?: string;
-
           email?: string;
-
           id?: string;
-
           name?: string;
         };
-
         Relationships: [];
       };
-
       transactions: {
         Row: {
           amount: number;
-
           category_id: string;
-
           created_at: string;
-
           date: string;
-
           description: string;
-
           id: string;
-
           type: Database['public']['Enums']['transaction_type'];
-
           user_id: string;
         };
-
         Insert: {
           amount: number;
-
           category_id: string;
-
           created_at?: string;
-
           date: string;
-
           description: string;
-
           id?: string;
-
           type: Database['public']['Enums']['transaction_type'];
-
           user_id?: string;
         };
-
         Update: {
           amount?: number;
-
           category_id?: string;
-
           created_at?: string;
-
           date?: string;
-
           description?: string;
-
           id?: string;
-
           type?: Database['public']['Enums']['transaction_type'];
-
           user_id?: string;
         };
-
         Relationships: [
           {
             foreignKeyName: 'transactions_category_id_fkey';
-
             columns: ['category_id'];
-
             isOneToOne: false;
-
             referencedRelation: 'categories';
-
             referencedColumns: ['id'];
           },
-
           {
             foreignKeyName: 'transactions_user_id_fkey';
-
             columns: ['user_id'];
-
             isOneToOne: false;
-
             referencedRelation: 'profiles';
-
             referencedColumns: ['id'];
           },
         ];
       };
     };
-
     Views: {
       [_ in never]: never;
     };
-
     Functions: {
       [_ in never]: never;
     };
-
     Enums: {
       transaction_type: 'income' | 'expense';
     };
-
     CompositeTypes: {
       [_ in never]: never;
     };

@@ -5,12 +5,18 @@ import { supabase } from '@/utils/supabase';
 import { NewTransactionForm } from '@/validation/newTransaction.validation';
 
 export const transactionService = {
-  list: async (type: TTransactionsFilter) => {
-    const { data, error } = await supabase
+  list: async (type: TTransactionsFilter, limit?: number) => {
+    const query = supabase
       .from('transactions')
       .select('*, category:categories(*)')
       .match(type === 'all' ? {} : { type })
       .order('date', { ascending: false });
+
+    if (limit) {
+      query.limit(limit);
+    }
+
+    const { data, error } = await query;
 
     if (error) {
       throw error;
@@ -37,5 +43,21 @@ export const transactionService = {
     }
 
     return data;
+  },
+
+  groupedByCategory: async () => {
+    const { data, error } = await supabase
+      .from('transactions')
+      .select('amount.sum(), type, category:categories(*)')
+      .eq('type', 'expense');
+
+    if (error) {
+      throw error;
+    }
+
+    const sortedData = data.sort((a, b) => b.sum - a.sum);
+    const totalAmount = data.reduce((acc, item) => acc + item.sum, 0);
+
+    return { data: sortedData, totalAmount };
   },
 };

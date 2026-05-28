@@ -7,8 +7,10 @@ export const queryKeys = {
   },
   transactions: {
     all: ['transactions'] as const,
-    list: (type: TTransactionsFilter) =>
-      [...queryKeys.transactions.all, 'list', type] as const,
+    list: (type: TTransactionsFilter, limit?: number) =>
+      [...queryKeys.transactions.all, 'list', type, limit] as const,
+    groupedByCategory: () =>
+      [...queryKeys.transactions.all, 'groupedByCategory'] as const,
   },
 } as const;
 

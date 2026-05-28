@@ -27,7 +27,7 @@ const CategoriesList = <TFieldValues extends FieldValues>({
   return (
     <View className="gap-2">
       <FlatList
-        columnWrapperClassName="justify-between"
+        columnWrapperClassName="justify-center gap-3"
         contentContainerClassName="gap-3"
         data={data}
         keyExtractor={item => item.id}

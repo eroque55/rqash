@@ -1,16 +1,18 @@
 import Animated, { FadeIn } from 'react-native-reanimated';
 
-import { mockExpenseCategories } from '@/assets/mock/expenseCategories';
+import { useTransactionsGroupedByCategory } from '@/hooks/api/useTransactionApi';
 
 import ExpenseCategoriesListItem from './ExpenseCategoriesListItem';
 
 const ExpenseCategoriesList = () => {
+  const { data } = useTransactionsGroupedByCategory();
+
   return (
     <Animated.FlatList
       contentContainerClassName="gap-3"
-      data={mockExpenseCategories}
+      data={data}
       entering={FadeIn}
-      keyExtractor={item => item.id}
+      keyExtractor={item => item.category.id}
       renderItem={({ item, index }) => (
         <ExpenseCategoriesListItem expenseCategory={item} index={index} />
       )}

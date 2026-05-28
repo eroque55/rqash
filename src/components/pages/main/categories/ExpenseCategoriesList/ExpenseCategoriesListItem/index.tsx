@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
+import { SvgFromUri } from 'react-native-svg';
 
-import { Icon } from '@/components/ui';
 import { TExpenseCategory } from '@/types/category';
 import { formatCurrency } from '@/utils/format';
 
@@ -16,9 +16,12 @@ const ExpenseCategoriesListItem = ({ expenseCategory, index }: Props) => {
       className="flex-row items-center gap-6 rounded-[20px] bg-white p-4 dark:bg-neutral-800"
       entering={FadeIn.delay(index * 100)}
     >
-      <Icon
+      <SvgFromUri
         color={expenseCategory.category.colorHex}
-        name={expenseCategory.category.icon}
+        height={20}
+        strokeWidth={1.5}
+        uri={expenseCategory.category.iconUrl}
+        width={20}
       />
 
       <View className="grow gap-1">
