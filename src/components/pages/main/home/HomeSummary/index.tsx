@@ -1,11 +1,14 @@
 import { Text, View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
+import { useTransactionsSummary } from '@/hooks/api/useTransactionApi';
 import { formatCurrency } from '@/utils/format';
 
 import HomeSummaryIndicator from './HomeSummaryIndicator';
 
 const HomeSummary = () => {
+  const { data } = useTransactionsSummary();
+
   return (
     <Animated.View
       className="bg-primary-500 w-full gap-5 rounded-[20px] p-5"
@@ -16,17 +19,17 @@ const HomeSummary = () => {
       </Text>
 
       <Text className="font-inter_extraBold text-3xl text-white">
-        {formatCurrency(1234.56)}
+        {formatCurrency(data?.totalAmount ?? 0)}
       </Text>
 
       <View className="w-full flex-row gap-5">
         <HomeSummaryIndicator
           iconRotation={180}
-          title="Receitas"
-          value={1234.56}
+          title="Despesas"
+          value={data?.expense ?? 0}
         />
 
-        <HomeSummaryIndicator title="Despesas" value={1234.56} />
+        <HomeSummaryIndicator title="Receitas" value={data?.income ?? 0} />
       </View>
     </Animated.View>
   );

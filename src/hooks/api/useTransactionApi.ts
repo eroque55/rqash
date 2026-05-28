@@ -60,3 +60,10 @@ export const useTransactionsGroupedByCategory = () => {
     },
   });
 };
+
+export const useTransactionsSummary = () => {
+  return useQuery({
+    queryKey: queryKeys.transactions.summary(),
+    queryFn: transactionService.summary,
+  });
+};

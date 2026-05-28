@@ -60,4 +60,32 @@ export const transactionService = {
 
     return { data: sortedData, totalAmount };
   },
+
+  summary: async () => {
+    const { data, error } = await supabase
+      .from('transactions')
+      .select('type, amount.sum()');
+
+    if (error) {
+      throw error;
+    }
+
+    const summary = data.reduce(
+      (acc, item) => {
+        acc[item.type] = item.sum;
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
+
+    const income = summary.income || 0;
+    const expense = summary.expense || 0;
+
+    const totalAmount = Object.values(summary).reduce(
+      (acc, value) => acc + value,
+      0,
+    );
+
+    return { income, expense, totalAmount };
+  },
 };

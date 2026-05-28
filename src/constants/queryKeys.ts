@@ -7,6 +7,7 @@ export const queryKeys = {
   },
   transactions: {
     all: ['transactions'] as const,
+    summary: () => [...queryKeys.transactions.all, 'summary'] as const,
     list: (type: TTransactionsFilter, limit?: number) =>
       [...queryKeys.transactions.all, 'list', type, limit] as const,
     groupedByCategory: () =>
