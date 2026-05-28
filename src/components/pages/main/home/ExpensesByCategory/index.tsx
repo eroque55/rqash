@@ -1,12 +1,37 @@
 import { FlatList, Text, View } from 'react-native';
+import { pieDataItem } from 'react-native-gifted-charts';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
-import { mockExpensesByCategory } from '@/assets/mock/expensesByCategory';
+import { useTransactionsGroupedByCategory } from '@/hooks/api/useTransactionApi';
 
 import ExpensesByCategoryChart from './ExpensesByCategoryChart';
 import ExpensesByCategoryIndicator from './ExpensesByCategoryIndicator';
 
 const ExpensesByCategory = () => {
+  const { data } = useTransactionsGroupedByCategory();
+
+  const mappedData: pieDataItem[] =
+    data?.map(item => ({
+      value: item.ammount,
+      color: item.category.colorHex,
+      text: item.category.name,
+    })) || [];
+
+  const topCategories = mappedData.slice(0, 5);
+  const otherCategories = mappedData.slice(5);
+
+  if (otherCategories.length > 0) {
+    const otherValue = otherCategories.reduce(
+      (acc, item) => acc + item.value,
+      0,
+    );
+    topCategories.push({
+      value: otherValue,
+      color: '#ccc',
+      text: 'Outros',
+    });
+  }
+
   return (
     <Animated.View
       className="w-full gap-5 rounded-[20px] bg-white p-5 dark:bg-neutral-800"
@@ -17,16 +42,16 @@ const ExpensesByCategory = () => {
       </Text>
 
       <View className="flex-row items-center gap-5">
-        <ExpensesByCategoryChart data={mockExpensesByCategory} />
+        <ExpensesByCategoryChart data={mappedData} />
 
         <FlatList
           contentContainerClassName="gap-2"
-          data={mockExpensesByCategory}
-          keyExtractor={item => item.id}
+          data={topCategories}
+          keyExtractor={item => item.text!}
           renderItem={({ item }) => (
             <ExpensesByCategoryIndicator
-              color={item.color}
-              label={item.label}
+              color={item.color!}
+              label={item.text!}
               value={item.value}
             />
           )}

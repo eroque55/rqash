@@ -9,14 +9,17 @@ import {
   TextInput,
   TextInputProps,
   TextStyle,
-  View,
 } from 'react-native';
 import {
   TextInputMask,
   TextInputMaskOptionProp,
   TextInputMaskTypeProp,
 } from 'react-native-masked-text';
-import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import Animated, {
+  FadeIn,
+  FadeOut,
+  LinearTransition,
+} from 'react-native-reanimated';
 
 import { colors } from '@/global/colors';
 import { fontFamily } from '@/global/fontFamily';
@@ -73,7 +76,10 @@ const NewTransactionInput = <TFieldValues extends FieldValues>({
   };
 
   return (
-    <View className="w-full gap-3 rounded-[20px] bg-white p-5 dark:bg-neutral-800">
+    <Animated.View
+      className="w-full gap-3 rounded-[20px] bg-white p-5 dark:bg-neutral-800"
+      layout={LinearTransition}
+    >
       <Text className="font-inter_medium text- text-neutral-600 dark:text-neutral-300">
         {label}
       </Text>
@@ -99,7 +105,7 @@ const NewTransactionInput = <TFieldValues extends FieldValues>({
           {error.message}
         </Animated.Text>
       )}
-    </View>
+    </Animated.View>
   );
 };
 
