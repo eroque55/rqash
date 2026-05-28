@@ -20,13 +20,16 @@ export const transactionService = {
   },
 
   create: async (form: NewTransactionForm) => {
+    const amount = parseFloat(form.amount);
     const parsedDate = parse(form.date, 'dd/MM/yyyy', new Date());
+    const date = format(parsedDate, 'yyyy-MM-dd');
+
     const { data, error } = await supabase.from('transactions').insert({
       type: form.type,
       description: form.description,
-      amount: parseFloat(form.amount.replace(',', '.').replace('.', '')),
-      date: format(parsedDate, 'yyyy-MM-dd'),
       category_id: form.category,
+      amount,
+      date,
     });
 
     if (error) {

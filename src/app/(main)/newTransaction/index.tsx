@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { format } from 'date-fns';
 import { useRouter } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
@@ -8,6 +9,7 @@ import NewTransactionInput from '@/components/pages/main/newTransaction/NewTrans
 import { Button, DefaultContainer } from '@/components/ui';
 import Tab from '@/components/ui/Tab';
 import { colors } from '@/global/colors';
+import { useCreateTransaction } from '@/hooks/api/useTransactionApi';
 import { useDefaultModal } from '@/store/defaultModalStore';
 import {
   NewTransactionForm,
@@ -18,6 +20,8 @@ const NewTransaction = () => {
   const router = useRouter();
   const { openModal } = useDefaultModal();
 
+  const { mutateAsync } = useCreateTransaction();
+
   const { control, setValue, watch, handleSubmit } =
     useForm<NewTransactionForm>({
       resolver: zodResolver(NewTransactionSchema),
@@ -25,24 +29,25 @@ const NewTransaction = () => {
         type: 'expense',
         amount: '0',
         description: '',
-        date: '',
+        date: format(new Date(), 'dd/MM/yyyy'),
         category: '',
       },
     });
 
   const { type } = watch();
 
-  const onSubmit = (data: NewTransactionForm) => {
-    console.log('----------------------data----------------------');
-    console.log(JSON.stringify(data, null, 2));
-    console.log('----------------------data----------------------');
-
-    openModal({
-      title: 'Transação salva',
-      message: 'Sua transação foi salva com sucesso.',
-      confirmText: 'Voltar',
-      onConfirm: () => router.back(),
-    });
+  const onSubmit = async (data: NewTransactionForm) => {
+    try {
+      await mutateAsync(data);
+      openModal({
+        title: 'Transação salva',
+        message: 'Sua transação foi salva com sucesso.',
+        confirmText: 'Voltar',
+        onConfirm: () => router.back(),
+      });
+    } catch {
+      //handled by default
+    }
   };
 
   return (

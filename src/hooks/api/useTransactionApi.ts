@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { parse } from 'date-fns';
 
 import { queryKeys } from '@/constants/queryKeys';
@@ -25,6 +25,15 @@ export const useTransactions = (type: TTransactionsFilter) => {
       }));
 
       return mappedData;
+    },
+  });
+};
+
+export const useCreateTransaction = () => {
+  return useMutation({
+    mutationFn: transactionService.create,
+    meta: {
+      invalidateQueries: queryKeys.transactions.all,
     },
   });
 };
