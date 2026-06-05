@@ -11,3 +11,9 @@ export const useUpdateProfile = () => {
     onSuccess: () => fetchUser(),
   });
 };
+
+export const useChangePassword = () => {
+  return useMutation({
+    mutationFn: profileService.changePassword,
+  });
+};

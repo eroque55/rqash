@@ -1,4 +1,5 @@
 import { supabase } from '@/utils/supabase';
+import { ChangePasswordForm } from '@/validation/changePassword.validation';
 import { EditProfileForm } from '@/validation/editProfile.validation';
 
 import { storageService } from './storage';
@@ -42,6 +43,20 @@ export const profileService = {
         avatar_url,
       })
       .eq('id', userId);
+
+    if (error) {
+      throw error;
+    }
+  },
+
+  changePassword: async ({
+    currentPassword,
+    newPassword,
+  }: ChangePasswordForm) => {
+    const { error } = await supabase.auth.updateUser({
+      nonce: currentPassword,
+      password: newPassword,
+    });
 
     if (error) {
       throw error;
